@@ -1,0 +1,1 @@
+<p>Welcome to Northampton News. All the local news and events.</p>
