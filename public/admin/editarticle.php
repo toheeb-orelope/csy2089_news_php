@@ -24,19 +24,25 @@ if (isset($_SESSION['loggedin'])) {
     if (isset($_GET['id'])) {
         $articles = $myArticles->genFind('id', $_GET['id']);
     } else {
-        $articles = false;
+        $articles = 'No record to insert';
     }
 
-    var_dump($categories, $articles);
+
 
     if (isset($_POST['submit'])) {
 
         // save($pdo, 'category', $_POST['category'], 'id');
         $myArticles->genSave($_POST['article']);
-        header('location: articles.php');
+        var_dump($_POST['article']);
+        exit;
+
+        // header('location: articles.php');
     } else {
 
-        $display = $myArticles->newsTemplate('../adminTemplates/editarticle.html.php', ['article' => $articles, 'categories' => $categories]);
+        $display = $myArticles->newsTemplate(
+            '../adminTemplates/editarticle.html.php',
+            ['article' => $articles, 'categories' => $categories]
+        );
 
     }
 
@@ -48,5 +54,10 @@ if (isset($_SESSION['loggedin'])) {
 
 
 
-require '../adminTemplates/adminlayout.html.php';
+require '../../newsTemplates/layout.html.php';
+
+
+
+
+
 

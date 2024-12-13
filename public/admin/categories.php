@@ -12,7 +12,8 @@ $myCategory = new Database($pdo, 'category', 'id');
 $pageTitle = 'Northampton News - Categories';
 $subTitlte = 'categories';
 
-// $sidebar = require '../adminTemplates/sidebar.html.php';
+$sidebar = $myCategory->newsTemplate('../adminTemplates/sidebar.html.php', []);
+
 if (isset($_SESSION['loggedin'])) {
 
 
@@ -25,4 +26,4 @@ if (isset($_SESSION['loggedin'])) {
 
 }
 
-require '../adminTemplates/adminlayout.html.php';
+require '../../newsTemplates/layout.html.php';

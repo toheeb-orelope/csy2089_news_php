@@ -17,10 +17,11 @@
     <label>Article text:</label>
     <textarea name="article[description]"><?= $article['description'] ?? '' ?></textarea>
 
+    <label>Date:</label>
     <input type="text" name="article[date]" value="<?= $article['date'] ?? (new DateTime())->format('Y-m-d H:i:s') ?>">
 
     <label>Arthor name:</label>
-    <input type="text" name="article[authorName]" value="<?= $article['authorName'] ?? '' ?>" />
+    <input type="text" name="article[authorname]" value="<?= $article['authorname'] ?? '' ?>" />
 
     <input type="submit" value="Submit" name="submit" />
 </form>

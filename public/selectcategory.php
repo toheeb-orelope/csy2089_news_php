@@ -9,14 +9,16 @@ $myCategory = new Database($pdo, 'category', 'id');
 $myArticles = new Database($pdo, 'article', 'id');
 
 $categories = $myCategory->genFindAll();
-$articles = $myArticles->genFindAll();
+$articles = $myArticles->genGetAll('categoryId', $_GET['id']);
 
-$categories = ['categories' => $categories];
-$articles = ['articles' => $articles];
+$pageTitle = 'Northampton News - View';
+$subTitlte = 'All';
 
-$display = $myCategory->newsTemplate('../newsTemplates/selectcategory.htm.php', $categories);
-$display = $myArticles->newsTemplate('../newsTemplates/selectcategory.htm.php', $articles);
+$display = $myArticles->newsTemplate(
+    '../newsTemplates/selectcategory.htm.php',
+    ['articles' => $articles]
+);
 
 
-require '../newsTemplates/newslayout.html.php';
+require '../newsTemplates/layout.html.php';
 

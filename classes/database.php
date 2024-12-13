@@ -98,11 +98,13 @@ class Database
     //This founction work with update and insert with try and catch
     function genSave($record)
     {
+        $this->genInsert($record);
         if (empty($record[$this->primKey])) {
             unset($record[$this->primKey]);
         }
+
         try {
-            $this->genInsert($record);
+            // $this->genInsert($record);
         } catch (Exception $e) {
             $this->genUpdate($record, );
         }

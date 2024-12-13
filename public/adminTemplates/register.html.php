@@ -6,7 +6,7 @@
     <input type="text" name="accounts[username]" value="<?= $account['username'] ?? '' ?>" required>
 
     <label for="">password</label>
-    <input type="password" name="accounts[password]" value="" required>
+    <input type="password" name="accounts[password]" value="">
 
     <label for="">name</label>
     <input type="text" name="accounts[name]" value="<?= $account['name'] ?? '' ?>" required>

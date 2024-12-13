@@ -9,17 +9,26 @@ require '../classes/database.php';
 
 
 //create an instance or object of a classs
+$myCategory = new Database($pdo, 'category', 'id');
 $myArticles = new Database($pdo, 'article', 'categoryId');
 
-$sidebar = $myArticles->newsTemplate('../newsTemplates/newssidebar.html.php', []);
+$categories = $myCategory->genFindAll();
+$pageTitle = 'Northampton News - Home';
 
-$pageTitle = 'Northampton News - Sport';
+if (isset($_GET['id'])) {
+    $articles = $myArticles->genFind('id', $_GET['id']);
+} else {
+    $article = null;
+}
+
+
+$pageTitle = 'Northampton News - Home';
 $subTitlte = 'Northampton News';
 
 
 
 
-$display = $myArticles->newsTemplate('../newsTemplates/newshome.html.php', []);
+$display = $myCategory->newsTemplate('../newsTemplates/newshome.html.php', []);
 
 
-require '../newsTemplates/newslayout.html.php';
+require '../newsTemplates/layout.html.php';

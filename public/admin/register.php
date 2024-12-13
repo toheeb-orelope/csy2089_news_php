@@ -8,13 +8,17 @@ require '../../classes/database.php';
 $myUsers = new Database($pdo, 'accounts', 'id');
 $myStatus = new Database($pdo, 'accounts', 'status');
 
-
+$myCategory = new Database($pdo, 'category', 'id');
+$categories = $myCategory->genFindAll();
 $pageTitle = 'Create Account - Account';
+$sidebar = $myStatus->newsTemplate('../adminTemplates/sidebar.html.php', []);
+
 
 /*
 usernames           passwords
 firstUser24         MyPassword12@
 secondUser24        StrongPass123!
+anotheruser24       Admin24!
 */
 
 $status = [];
@@ -29,7 +33,8 @@ if (isset($_POST['submit'])) {
         $hashPassword = password_hash($hPassword, PASSWORD_DEFAULT);
         $_POST['accounts']['password'] = $hashPassword;
         $myUsers->genSave($_POST['accounts']);
-        $display = 'Accound created!!! <a href="index.php"> click here to login </a>';
+        // $display = 'Accound created!!! <a href="index.php"> click here to login </a>';
+        header('location: viewusers.php');
 
     } else {
         echo 'Please fill in required field to create an account';
@@ -45,8 +50,8 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    $display = $myUsers->newsTemplate('../adminTemplates/register.html.php', ['user' => $user, 'status' => $status]);
+    $display = $myUsers->newsTemplate('../adminTemplates/register.html.php', ['account' => $user, 'status' => $status]);
 }
 
 
-require '../adminTemplates/adminlayout.html.php';
+require '../../newsTemplates/layout.html.php';

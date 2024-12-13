@@ -7,6 +7,9 @@ require '../../classes/database.php';
 
 //create an instance or object of a classs
 $myUsers = new Database($pdo, 'accounts', 'id');
+$myCategory = new Database($pdo, 'category', 'id');
+$categories = $myCategory->genFindAll();
+$sidebar = $myCategory->newsTemplate('../adminTemplates/sidebar.html.php', []);
 
 
 $pageTitle = 'Northampton News - Users';
@@ -25,4 +28,4 @@ if (isset($_SESSION['loggedin'])) {
 
 }
 
-require '../adminTemplates/adminlayout.html.php';
+require '../../newsTemplates/layout.html.php';

@@ -11,7 +11,6 @@ require '../classes/database.php';
 //create an instance or object of a classs
 $myArticles = new Database($pdo, 'article', 'categoryId');
 
-$sidebar = $myArticles->newsTemplate('../newsTemplates/newssidebar.html.php', []);
 
 $pageTitle = 'Northampton News - Sport';
 $subTitlte = 'Latest News';
@@ -26,4 +25,4 @@ $articles = $myArticles->findByOrder(null, null, 'DESC');
 $display = $myArticles->newsTemplate('../newsTemplates/sport.html.php', ['articles' => $articles]);
 
 
-require '../newsTemplates/newslayout.html.php';
+require '../newsTemplates/layout.html.php';

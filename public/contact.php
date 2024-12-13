@@ -6,6 +6,10 @@ require '../classes/database.php';
 
 //create an instance or object of a classs
 $myContact = new Database($pdo, 'contactus', 'id');
+$myCategory = new Database($pdo, 'category', 'id');
+
+$categories = $myCategory->genFindAll();
+
 
 
 $pageTitle = 'Northampton News - Contact Us';
@@ -33,4 +37,4 @@ if (isset($_POST['submit'])) {
 
 
 
-require '../newsTemplates/newslayout.html.php';
+require '../newsTemplates/layout.html.php';

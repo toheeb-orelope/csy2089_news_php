@@ -20,13 +20,9 @@
             <li><a href="latest.php">Latest Articles</a></li>
             <li><a href="#">Select Category</a>
                 <ul>
-                    <li><a href="news.php">Local News</a></li>
-                    <li><a href="events.php">Local Events</a></li>
-                    <li><a href="sport.php">Sport</a></li>
+                    <?php foreach ($categories as $category) { ?>
 
-                    <?php foreach ($categories['categories'] as $category) { ?>
-
-                        <li><a href="selectcategory.php?id=<?= $article['id'] ?>"><?= $category['name'] ?></a></li>
+                        <li><a href="selectcategory.php?id=<?= $category['id'] ?>"><?= $category['name'] ?></a></li>
                     <?php } ?>
                 </ul>
             </li>
@@ -36,17 +32,9 @@
     </nav>
     <img src="/images/banners/randombanner.php" />
     <main>
-        <nav>
-            <ul>
-                <li><a href="news.php">Local News</a></li>
-                <li><a href="events.php">Local Events</a></li>
-                <li><a href="sport.php">Sport</a></li>
-                <?php foreach ($categories['categories'] as $category) { ?>
 
-                    <li><a href="selectcategory.php?id=<?= $article['id'] ?>"><?= $category['name'] ?></a></li>
-                <?php } ?>
-            </ul>
-        </nav>
+        <?= $sidebar ?? '' ?>
+
         <article>
             <?= $subTitlte ?? '' ?>
             <?= $display ?>

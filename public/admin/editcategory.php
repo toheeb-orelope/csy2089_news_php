@@ -9,9 +9,11 @@ require '../../classes/database.php';
 //create an instance or object of a classs
 $myCategory = new Database($pdo, 'category', 'id');
 
-
-$pageTitle = 'Northampton News - Home';
+$sidebar = $myCategory->newsTemplate('../adminTemplates/sidebar.html.php', []);
+$pageTitle = 'Northampton News - Edit Category';
 $subTitlte = 'Add category';
+
+$categories = $myCategory->genFindAll();
 
 //This page Insert and update Category
 if (isset($_SESSION['loggedin'])) {
@@ -40,4 +42,4 @@ if (isset($_SESSION['loggedin'])) {
 
 }
 
-require '../adminTemplates/adminlayout.html.php';
+require '../../newsTemplates/layout.html.php';

@@ -8,8 +8,12 @@ require '../../classes/database.php';
 
 //create an instance or object of a classs
 $myArticles = new Database($pdo, 'article', 'id');
+$myCategory = new Database($pdo, 'category', 'id');
 
-// $sidebar = $myArticles->newsTemplate('../adminTemplates/sidebar.html.php', []);
+
+$categories = $myCategory->genFindAll();
+
+$sidebar = $myArticles->newsTemplate('../adminTemplates/sidebar.html.php', []);
 
 $pageTitle = 'Home';
 $subTitlte = 'Articles';
@@ -25,4 +29,4 @@ if (isset($_SESSION['loggedin'])) {
 
 }
 
-require '../adminTemplates/adminlayout.html.php';
+require '../../newsTemplates/layout.html.php';

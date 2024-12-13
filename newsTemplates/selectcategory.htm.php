@@ -1,16 +1,15 @@
-<?php foreach ($articles as $article) { ?>
-    <table>
-        <tr>
-            <td> <?= $article['title'] ?></td>
-            <td> <?= $article['description'] ?></td>
-            <td> <?= $article['date'] ?></td>
-        </tr>
-    </table>
-<?php } ?>
+<?php
 
 
 
-<?php foreach ($categories as $category) { ?>
+foreach ($articles as $article) {
 
-    <p> <a href="selectcategory.php?id=<?= $article['id'] ?>"><?= $category['name'] ?></a></p>
-<?php } ?>
+    echo '<table>';
+    echo '<tr>';
+    echo '<td>' . $article['title'] . '</td>';
+    echo '<td>' . $article['description'] . '</td>';
+    echo '<td>' . $article['date'] . '</td>';
+    echo '</tr>';
+    echo '</table>';
+
+}
