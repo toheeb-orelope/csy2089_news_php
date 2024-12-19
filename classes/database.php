@@ -25,10 +25,10 @@ class Database
     //This function is used to query the database to fetch a single item
     function genFind($field, $values)
     {
-        $stm = $this->pdo->prepare('SELECT * FROM ' . $this->table . ' WHERE ' . $field . '=:values');
+        $stmt = $this->pdo->prepare('SELECT * FROM ' . $this->table . ' WHERE ' . $field . '=:values');
         $values = ['values' => $values];
-        $stm->execute($values);
-        return $stm->fetch();
+        $stmt->execute($values);
+        return $stmt->fetch();
     }
 
 
@@ -98,13 +98,12 @@ class Database
     //This founction work with update and insert with try and catch
     function genSave($record)
     {
-        $this->genInsert($record);
         if (empty($record[$this->primKey])) {
             unset($record[$this->primKey]);
         }
 
         try {
-            // $this->genInsert($record);
+            $this->genInsert($record);
         } catch (Exception $e) {
             $this->genUpdate($record, );
         }
@@ -141,6 +140,81 @@ class Database
             error_log('Error fetching enum values for $this->table.$this->primKey: ' . $e->getMessage());
             return [];
         }
+    }
+
+
+    function fetchByKeyword($col, $keyword)
+    {
+        $keyword = '%' . $keyword . '%';
+
+        $stmt = $this->pdo->prepare('SELECT * FROM ' . $this->table .
+            ' WHERE ' . $col . ' LIKE :keyword');
+        $stmt->execute(['keyword' => $keyword]);
+        return $stmt->fetchAll();
+    }
+
+    // function genGetAll($field, $value)
+    // {
+    //     $stmt = $this->pdo->prepare('SELECT * FROM ' . $this->table . ' WHERE ' . $field . '= :value');
+    //     $stmt->execute(['value' => $value]);
+    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // }
+
+    function genGetAll($field, $value)
+    {
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $field . '= :value';
+        var_dump($query, $value);
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['value' => $value]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
+    function letInsertImage($file, $dbInstance, $uploadDir = '../images/')
+    {
+        try {
+            $this->pdo->beginTransaction();
+
+            // Extract file details
+            $imgFile = $file['name'];
+            $tempName = $file['tmp_name'];
+            $targetPath = $uploadDir . $imgFile;
+
+            // Move file to the target directory
+            if (!move_uploaded_file($tempName, $targetPath)) {
+                throw new Exception('Failed to move uploaded file.');
+            }
+
+            // Insert image metadata into the database
+            $imageData = ['imgfile' => $imgFile];
+            $dbInstance->genInsert($imageData);
+
+            // Get the inserted image ID
+            $imageId = $this->pdo->lastInsertId();
+
+            // Commit transaction
+            $this->pdo->commit();
+
+            return $imageId;
+
+        } catch (Exception $e) {
+            // Rollback transaction on failure
+            $this->pdo->rollBack();
+
+            // Handle error (log it or display message)
+            error_log($e->getMessage());
+            return false;
+        }
+    }
+
+    public function redirectWithMessage($message, $message_type, $redirectUrl = null)
+    {
+        $_SESSION['message'] = $message;
+        $_SESSION['redirect_url'] = $redirectUrl;
+        $_SESSION['message_type'] = $message_type;
+        header('Location: ../admin/messages.php');
+        exit;
     }
 
 

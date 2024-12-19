@@ -1,7 +1,7 @@
 <?php if ($article): ?>
     <blockquote>
         <h2><?= htmlspecialchars($article['title']) ?></h2>
-        <h3>By <?= $article['authorname'] ?></h3>
+        <h3>By <a href="userspost.php?"><?= $article['username'] ?></a></h3>
         <p><strong>Date:</strong> <?= htmlspecialchars($article['date']) ?></p>
         <p><?= nl2br(htmlspecialchars($article['description'])) ?></p>
     </blockquote>
@@ -19,8 +19,7 @@
 <?php endif; ?>
 
 <!-- Display Comments -->
-<h3>Comments</h3>
-<?php if ($comments): ?>
+<?php if (isset($comments) && $comments): ?>
     <ul>
         <?php foreach ($comments as $comment): ?>
             <li>

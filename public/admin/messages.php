@@ -15,25 +15,23 @@ $categories = $myCategory->genFindAll();
 
 $sidebar = $myArticles->newsTemplate('../adminTemplates/sidebar.html.php', []);
 
-$pageTitle = 'Home';
-$subTitlte = 'Articles';
+$pageTitle = 'Message';
+$subTitlte = 'Message';
 if (isset($_SESSION['loggedin'])) {
 
 
-	// $articles = $myArticles->genFindAll();
-	$articles = [];
-	if (isset($_GET['id'])) {
-		$id = $_GET['id'];
-		$articles = $myArticles->genGetAll('categoryId', $id);
-		var_dump($articles, $id);
+    $message = $_SESSION['message'] ?? 'An unknown error occurred.';
+    $messageType = $_SESSION['messageType'] ?? 'error';
+    $redirectUrl = $_SESSION['redirect_url'] ?? null;
 
-	}
 
-	$display = $myArticles->newsTemplate('../adminTemplates/articles.html.php', ['articles' => $articles]);
+    unset($_SESSION['message'], $_SESSION['redirect_url'], $_SESSION['messageType']);
+
+    $display = $myArticles->newsTemplate('../adminTemplates/messages.html.php', []);
 
 } else {
 
-	$display = $myArticles->newsTemplate('../adminTemplates/login.html.php', []);
+    $display = $myArticles->newsTemplate('../adminTemplates/login.html.php', []);
 
 }
 

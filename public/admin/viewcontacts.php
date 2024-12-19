@@ -9,7 +9,11 @@ require '../../classes/database.php';
 //create an instance or object of a classs
 $myContact = new Database($pdo, 'contactus', 'id');
 $myCategory = new Database($pdo, 'category', 'id');
-$sidebar = $myCategory->newsTemplate('../adminTemplates/sidebar.html.php', []);
+
+$sidebar = $myCategory->newsTemplate(
+    '../adminTemplates/sidebar.html.php',
+    []
+);
 $categories = $myCategory->genFindAll();
 
 $pageTitle = 'View Contacts';
@@ -26,11 +30,17 @@ if (isset($_SESSION['loggedin'])) {
                 $myContact->genUpdate([
                     'id' => $id,
                     'status' => $newStatus,
-                    // 'update_by_user' => $avaUser,
+                    'update_by_user' => $avaUser,
                 ]);
             }
         }
+
+        // Refresh contacts after the update
+        $contactsPending = $myContact->genGetAll('status', 'pending');
+        $contactsDone = $myContact->genGetAll('status', 'done');
+        $contacts = array_merge($contactsDone, $contactsPending);
     }
+
 
     //Search by keyword
     if (isset($_GET['keyword'])) {
@@ -39,16 +49,22 @@ if (isset($_SESSION['loggedin'])) {
         $contactsPending = $myContact->genGetAll('status', 'pending');
         $contactsDone = $myContact->genGetAll('status', 'done');
         $contacts = array_merge($contactsDone, $contactsPending);
-        var_dump($contactsDone, $contactsPending, $contacts);
+        // var_dump($contactsDone, $contactsPending, $contacts);
     }
 
     // $contacts = $myContact->genFindAll();
 
-    $display = newsTemlate('../adminTemplates/viewcontact.html.php', ['contacts' => $contacts]);
+    $display = newsTemlate(
+        '../adminTemplates/viewcontact.html.php',
+        ['contacts' => $contacts]
+    );
 
 } else {
 
-    $display = $myContact->newsTemplate('../adminTemplates/viewcontact.html.php', []);
+    $display = $myContact->newsTemplate(
+        '../adminTemplates/viewcontact.html.php',
+        []
+    );
 
 }
 

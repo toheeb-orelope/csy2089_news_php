@@ -1,4 +1,11 @@
-<?php if (!empty($contacts)) { ?>
+<?php enum Status: string
+{
+    case Pending = 'pending';
+    case Done = 'done';
+}
+?>
+
+<?php if (!empty($contacts) && is_array($contacts)) { ?>
     <form action="viewcontacts.php" method="POST">
         <?php foreach ($contacts as $contact) { ?>
             <table>
@@ -9,8 +16,10 @@
                     <td> <?= $contact['comment'] ?></td>
                     <td>
                         <select name="status[<?= $contact['id'] ?>]">
-                            <option value="pending" <?= $contact['status'] === 'pending' ? 'selected' : '' ?>>Pending</option>
-                            <option value="done" <?= $contact['status'] === 'done' ? 'selected' : '' ?>>Done</option>
+                            <option value="pending" <?= $contact['status']
+                                === 'pending' ? 'selected' : '' ?>>Pending</option>
+                            <option value="done" <?= $contact['status']
+                                === 'done' ? 'selected' : '' ?>>Done</option>
                         </select>
                     </td>
                     <td> <?= $contact['date_updated'] ?></td>

@@ -36,7 +36,6 @@ if (isset($_SESSION['loggedin'])) {
             $username = $_SESSION['username'] ?? null;
             $commentText = trim($_POST['comment'] ?? "");
 
-            // Validate the comment
             if ($commentText === "") {
                 $error = "Comment cannot be empty.";
             } elseif (!$userId) {
@@ -53,14 +52,16 @@ if (isset($_SESSION['loggedin'])) {
 
                 // Redirect to avoid form resubmission
                 header("Location: articledetail.php?id=$articleId");
-                exit;
             }
         }
 
-        // Retrieve comments for the article
-        $comments = $myComment->genFind('articleId', $articleId) ?? [];
 
-        // Load the article detail template
+        $comments = [];
+        if ($articleId) {
+            $comments = $myComment->genFind('articleId', $articleId) ?? [];
+        }
+    
+
         $display = $myComment->newsTemplate('../adminTemplates/articledetail.html.php', [
             'categories' => $categories,
             'comments' => $comments,

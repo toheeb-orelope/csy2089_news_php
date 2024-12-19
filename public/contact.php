@@ -30,7 +30,10 @@ if (isset($_POST['submit'])) {
     // header('location: view.php');
 } else {
 
-    $display = $myContact->newsTemplate('../newsTemplates/contacts.html.php', []);
+    $display = $myContact->newsTemplate(
+        '../newsTemplates/contacts.html.php',
+        []
+    );
 }
 
 

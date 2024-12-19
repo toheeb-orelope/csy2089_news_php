@@ -22,3 +22,4 @@ $display = $myArticles->newsTemplate(
 
 require '../newsTemplates/layout.html.php';
 
+//This to solve category and article
