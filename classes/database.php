@@ -28,7 +28,8 @@ class Database
         $stmt = $this->pdo->prepare('SELECT * FROM ' . $this->table . ' WHERE ' . $field . '=:values');
         $values = ['values' => $values];
         $stmt->execute($values);
-        return $stmt->fetch();
+        $result = $stmt->fetch();
+        return $result ?: [];
     }
 
 
@@ -43,9 +44,9 @@ class Database
     //According to Toheeb (2024), PHP best practice code involved best way to write php code, web structure, and database manipulation.
 
     //This functions would query by ordering
-    function findByOrder($field, $values)
+    function findByOrder()
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM ' . $this->table . ' WHERE ' . $field . ' = ' . $values . ' ORDER by date desc');
+        $stmt = $this->pdo->prepare('SELECT * FROM ' . $this->table . '  ORDER by date DESC');
         $stmt->execute();
         return $stmt->fetchAll();
     }

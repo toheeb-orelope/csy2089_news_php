@@ -2,8 +2,8 @@
 session_start();
 ?>
 <?php
-require '../../founctions/functions.php';
-require '../../founctions/dbconfig.php';
+require '../../functions/functions.php';
+require '../../functions/dbconfig.php';
 require '../../classes/database.php';
 
 //create an instance or object of a classs
@@ -27,7 +27,14 @@ if (isset($_SESSION['loggedin'])) {
 
     unset($_SESSION['message'], $_SESSION['redirect_url'], $_SESSION['messageType']);
 
-    $display = $myArticles->newsTemplate('../adminTemplates/messages.html.php', []);
+    $display = $myArticles->newsTemplate(
+        '../adminTemplates/messages.html.php',
+        [
+            'message' => $message,
+            'messageType' => $messageType,
+            'redirectUrl' => $redirectUrl
+        ]
+    );
 
 } else {
 

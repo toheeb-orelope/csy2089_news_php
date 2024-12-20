@@ -1,7 +1,7 @@
 <?php
 session_start();
-require '../../founctions/functions.php';
-require '../../founctions/dbconfig.php';
+require '../../functions/functions.php';
+require '../../functions/dbconfig.php';
 require '../../classes/database.php';
 
 $pageTitle = 'Northampton News - Article';
@@ -41,7 +41,7 @@ if (isset($_SESSION['loggedin'])) {
             $postArt['imageId'] = $imageId;
             $postArt['username'] = $username; // Add active user to the article data
             $myArticles->genSave($postArt);
-            $myImage->redirectWithMessage('Image uploaded successfully!!!', 'success', 'articles.php');
+            $myImage->redirectWithMessage('Image uploaded successfully!!!', 'success', 'editarticle.php');
         } else {
             $myImage->redirectWithMessage('Image upload failed.', 'bad', 'editarticle.php');
             die('Image upload failed.');

@@ -1,7 +1,7 @@
 <?php
 session_start();
-require '../../founctions/functions.php';
-require '../../founctions/dbconfig.php';
+require '../../functions/functions.php';
+require '../../functions/dbconfig.php';
 require '../../classes/database.php';
 
 // Create an instance of the Database class
@@ -60,7 +60,7 @@ if (isset($_SESSION['loggedin'])) {
         if ($articleId) {
             $comments = $myComment->genFind('articleId', $articleId) ?? [];
         }
-    
+
 
         $display = $myComment->newsTemplate('../adminTemplates/articledetail.html.php', [
             'categories' => $categories,

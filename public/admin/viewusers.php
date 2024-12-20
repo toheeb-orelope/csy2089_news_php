@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require '../../founctions/functions.php';
-require '../../founctions/dbconfig.php';
+require '../../functions/functions.php';
+require '../../functions/dbconfig.php';
 require '../../classes/database.php';
 
 //create an instance or object of a classs
@@ -28,7 +28,7 @@ $subTitlte = 'Staffs';
 // $sidebar = require '../adminTemplates/sidebar.html.php';
 if (isset($_SESSION['loggedin'])) {
 
-
+    $action = $_GET['action'] ?? null;
     //Add user implementation
     if (isset($_POST['submit'])) {
 
@@ -38,7 +38,6 @@ if (isset($_SESSION['loggedin'])) {
             $hashPassword = password_hash($hPassword, PASSWORD_DEFAULT);
             $_POST['accounts']['password'] = $hashPassword;
             $myUsers->genSave($_POST['accounts']);
-            // $display = 'Accound created!!! <a href="index.php"> click here to login </a>';
             header('location: viewusers.php');
 
         } else {
@@ -48,7 +47,7 @@ if (isset($_SESSION['loggedin'])) {
 
     } else {
         $user = null;
-        if (isset($_GET['id'])) {
+        if ($action === 'edit' && isset($_GET['id'])) {
             $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
             if ($id) {
                 $user = $myUsers->genFind('id', $id);
@@ -56,13 +55,13 @@ if (isset($_SESSION['loggedin'])) {
         }
     }
 
-    if (isset($_GET['id'])) {
+    if ($action === 'delete' && isset($_GET['id'])) {
         $myDelete = $myUsers->genFind('id', $_GET['id']);
         if ($myDelete['status'] == 'Admin') {
             $myUsers->redirectWithMessage(
                 'Admin can not be deleted',
                 'bad',
-                '../admin/messages.php'
+                '../admin/viewusers.php'
             );
             exit;
         } else {
@@ -70,7 +69,7 @@ if (isset($_SESSION['loggedin'])) {
             $myUsers->redirectWithMessage(
                 'User deleted',
                 'success',
-                '../admin/messages.php'
+                '../admin/viewusers.php'
             );
         }
     }

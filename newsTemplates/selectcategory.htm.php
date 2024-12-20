@@ -1,23 +1,7 @@
-<?php
-
-// foreach ($articles as $article) {
-
-//     echo '<table>';
-//     echo '<tr>';
-//     echo '<td>' . $article['title'] . '</td>';
-//     echo '<td>' . $article['description'] . '</td>';
-//     echo '<td>' . $article['date'] . '</td>';
-//     echo '</tr>';
-//     echo '</table>';
-
-// }
-?>
-
 <?php foreach ($articles as $article) { ?>
     <blockquote>
-        <h2><?= htmlspecialchars($article['title']) ?></h2>
-        <h3>By <?= $article['authorname'] ?></h3>
-        <p><strong>Date:</strong> <?= htmlspecialchars($article['date']) ?></p>
-        <p><?= nl2br(htmlspecialchars($article['description'])) ?></p>
+        <h2><a href="articledetail.php?id=<?= $article['id'] ?>"><?= htmlspecialchars($article['title']) ?></a></h2>
+        <h3>Published By: <a href="postby.php?username=<?= $article['username'] ?>"><?= $article['username'] ?></a></h3>
+        <p><strong>Date Published: </strong> <?= htmlspecialchars($article['date']) ?></p>
     </blockquote>
 <?php } ?>

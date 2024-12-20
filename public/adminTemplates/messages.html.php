@@ -1,5 +1,5 @@
 <div class="message-box <?= htmlspecialchars($messageType); ?>">
-    <p><?= htmlspecialchars($message); ?></p>
+    <p><?= $message; ?></p>
     <?php if ($redirectUrl): ?>
         <p><a href="<?= htmlspecialchars($redirectUrl); ?>" class="redirect-link">Click here to continue</a></p>
     <?php endif; ?>

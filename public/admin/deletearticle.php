@@ -3,8 +3,8 @@ session_start();
 ?>
 
 <?php
-require '../../founctions/functions.php';
-require '../../founctions/dbconfig.php';
+require '../../functions/functions.php';
+require '../../functions/dbconfig.php';
 require '../../classes/database.php';
 
 //create an instance or object of a classs

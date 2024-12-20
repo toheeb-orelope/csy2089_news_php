@@ -1,6 +1,6 @@
 <?php
-require '../founctions/dbconfig.php';
-require '../founctions/functions.php';
+require '../functions/dbconfig.php';
+require '../functions/functions.php';
 require '../classes/database.php';
 
 
@@ -11,15 +11,15 @@ $myArticles = new Database($pdo, 'article', 'id');
 $categories = $myCategory->genFindAll();
 $articles = $myArticles->genGetAll('categoryId', $_GET['id']);
 
-$pageTitle = 'Northampton News - View';
-$subTitlte = 'All';
+$sidebar = $myArticles->newsTemplate('../newsTemplates/newssibebar.html.php', ['categories' => $categories]);
 
-$display = $myArticles->newsTemplate(
-    '../newsTemplates/selectcategory.htm.php',
-    ['articles' => $articles]
-);
+
+
+
+$display = $myCategory->newsTemplate('../newsTemplates/selectcategory.htm.php', ['articles' => $articles]);
+
 
 
 require '../newsTemplates/layout.html.php';
 
-//This to solve category and article
+

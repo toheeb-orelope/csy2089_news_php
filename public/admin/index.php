@@ -1,8 +1,8 @@
 <?php
 session_start();
 require '../../classes/database.php';
-require '../../founctions/dbconfig.php';
-require '../../founctions/functions.php';
+require '../../functions/dbconfig.php';
+require '../../functions/functions.php';
 
 //create an instance or object of a classs
 $myArticles = new Database($pdo, 'accounts', 'id');

@@ -3,8 +3,8 @@ session_start();
 ?>
 
 <?php
-require '../founctions/dbconfig.php';
-require '../founctions/functions.php';
+require '../functions/dbconfig.php';
+require '../functions/functions.php';
 require '../classes/database.php';
 
 

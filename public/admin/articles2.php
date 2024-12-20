@@ -20,20 +20,14 @@ $subTitlte = 'Articles';
 if (isset($_SESSION['loggedin'])) {
 
 
-	$articles = $myArticles->genFindAll();
-	// $articles = [];
-	// if (isset($_GET['id'])) {
-	// 	$id = $_GET['id'];
-	// 	$articles = $myArticles->genGetAll('categoryId', $id);
-	// 	var_dump($articles, $id);
+    $articles = $myArticles->genFindAll();
 
-	// }
 
-	$display = $myArticles->newsTemplate('../adminTemplates/articles.html.php', ['articles' => $articles]);
+    $display = $myArticles->newsTemplate('../adminTemplates/articles.html.php', ['articles' => $articles]);
 
 } else {
 
-	$display = $myArticles->newsTemplate('../adminTemplates/login.html.php', []);
+    $display = $myArticles->newsTemplate('../adminTemplates/login.html.php', []);
 
 }
 

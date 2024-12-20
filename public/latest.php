@@ -1,15 +1,20 @@
 <?php
 session_start();
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Expires: Tue, 01 Jan 2000 00:00:00 GMT");
+header("Pragma: no-cache");
 ?>
 
 <?php
-require '../founctions/dbconfig.php';
-require '../founctions/functions.php';
+require '../functions/dbconfig.php';
+require '../functions/functions.php';
 require '../classes/database.php';
 
 
 //create an instance or object of a classs
-$myArticles = new Database($pdo, 'article', 'categoryId');
+$myCategory = new Database($pdo, 'category', 'id');
+$myArticles = new Database($pdo, 'article', 'id');
+$categories = $myCategory->genFindAll();
 
 
 $pageTitle = 'Northampton News - Sport';
@@ -20,9 +25,10 @@ $subTitlte = 'Latest News';
 // $stmt->execute();
 
 // $articles = $myArticles->genFindAll();
-$articles = $myArticles->findByOrder(null, null, 'DESC');
+$articles = $myArticles->findByOrder();
 
-$display = $myArticles->newsTemplate('../newsTemplates/sport.html.php', ['articles' => $articles]);
+
+$display = $myArticles->newsTemplate('../newsTemplates/latest.html.php', ['articles' => $articles]);
 
 
 require '../newsTemplates/layout.html.php';
