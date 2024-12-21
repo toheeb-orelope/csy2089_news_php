@@ -10,6 +10,7 @@ $myCategory = new Database($pdo, 'category', 'id');
 
 $categories = $myCategory->genFindAll();
 
+$sidebar = $myContact->newsTemplate('../newsTemplates/newssibebar.html.php', ['categories' => $categories]);
 
 
 $pageTitle = 'Northampton News - Contact Us';

@@ -8,7 +8,7 @@
     <?php if ($redirectUrl): ?>
         setTimeout(() => {
             window.location.href = "<?= htmlspecialchars($redirectUrl); ?>";
-        }, 5000);
+        }, 2000);
     <?php endif; ?>
 </script>
 

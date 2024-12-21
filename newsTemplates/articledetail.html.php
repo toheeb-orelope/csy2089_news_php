@@ -7,9 +7,34 @@
     </blockquote>
 <?php endif; ?>
 
+<!-- Display Comments -->
+<?php if (isset($comments) && $comments) { ?>
+    <ul>
+        <?php foreach ($comments as $comment) { ?>
+            <li>
+                <p><strong><?= $comment['username'] ?>:</strong> <?= nl2br(htmlspecialchars($comment['commenttext'])) ?></p>
+            </li>
+        <?php } ?>
+    </ul>
+<?php } else { ?>
+    <p>No comments yet. Be the first to comment!</p>
+<?php } ?>
+
+<style>
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
 <!-- Add Comment Form -->
-<form action="articledetail.php" method="POST">
+<form action="articledetail.php?id=<?= $article['id'] ?>" method="POST">
+
     <input type="hidden" name="comment[id]" value="<?= $comment['id'] ?? '' ?>">
+
+
+    <input type="hidden" name="comment[articleId]" value="<?= $article['id'] ?? '' ?>">
 
     <label for="username">Username</label>
     <input type="text" name="comment[username]" placeholder="Enter your username"
@@ -21,25 +46,12 @@
 
     <label for="comment">Add Comment</label>
     <textarea name="comment[commenttext]" rows="5" cols="40" placeholder="Write your comment here..."
-        value="<?= $comment['commenttext'] ?? '' ?>"></textarea>
+        required><?= $comment['commenttext'] ?? '' ?></textarea>
 
     <input type="submit" name="sendcomment" value="Comment">
 </form>
 
+
 <?php if (!empty($error)): ?>
     <p style="color: red;"><?= htmlspecialchars($error) ?></p>
-<?php endif; ?>
-
-<!-- Display Comments -->
-<?php if (isset($comments) && $comments): ?>
-    <ul>
-        <?php foreach ($comments as $comment): ?>
-            <li>
-                <p><strong><?= htmlspecialchars($comment['username']) ?>:</strong></p>
-                <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-<?php else: ?>
-    <p>No comments yet. Be the first to comment!</p>
 <?php endif; ?>

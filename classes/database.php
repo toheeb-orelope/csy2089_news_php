@@ -29,7 +29,8 @@ class Database
         $values = ['values' => $values];
         $stmt->execute($values);
         $result = $stmt->fetch();
-        return $result ?: [];
+        // return $result ?: [];
+        return $result;
     }
 
 
@@ -99,14 +100,25 @@ class Database
     //This founction work with update and insert with try and catch
     function genSave($record)
     {
-        if (empty($record[$this->primKey])) {
-            unset($record[$this->primKey]);
-        }
+        // if (empty($record[$this->primKey])) {
+        //     unset($record[$this->primKey]);
+        // }
 
+        // try {
+        //     $this->genInsert($record);
+        // } catch (Exception $e) {
+        //     $this->genUpdate($record, );
+        //     var_dump($record);
+        // }
         try {
-            $this->genInsert($record);
+            if (empty($record[$this->primKey])) {
+                unset($record[$this->primKey]);
+                $this->genInsert($record);
+            } else {
+                $this->genUpdate($record);
+            }
         } catch (Exception $e) {
-            $this->genUpdate($record, );
+            throw new Exception("Error saving record: " . $e->getMessage());
         }
     }
 

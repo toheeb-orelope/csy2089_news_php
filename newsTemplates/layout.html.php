@@ -16,7 +16,7 @@
     </header>
     <nav>
         <ul>
-            <li><a href="">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="latest.php">Latest Articles</a></li>
             <li><a href="#">Select Category</a>
                 <ul>
