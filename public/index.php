@@ -21,8 +21,7 @@ if (isset($_GET['id'])) {
 
 
 $pageTitle = 'Northampton News - Home';
-$subTitlte = 'Northampton News';
-
+$subTitle = '<h2>Northampton News</h2>';
 
 
 

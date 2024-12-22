@@ -1,86 +1,63 @@
 <?php
+session_start();
 require '../functions/dbconfig.php';
 require '../functions/functions.php';
 require '../classes/database.php';
 
-// Create an instance of the Database class
+$pageTitle = 'Article';
+$subTitle = '<h2>Article Details</h2>';
+
 $myArticles = new Database($pdo, 'article', 'id');
 $myCategory = new Database($pdo, 'category', 'id');
 $myComment = new Database($pdo, 'comments', 'id');
+$myReader = new Database($pdo, 'reader', 'id');
 
 $categories = $myCategory->genFindAll();
-$comments = $myComment->genGetAll('articleId', $_GET['id']);
-$sidebar = $myArticles->newsTemplate('../newsTemplates/newssibebar.html.php', ['categories' => $categories]);
-
-$pageTitle = 'Article';
-$subTitle = 'Article';
-
+$action = $_GET['action'] ?? null;
 
 if (isset($_GET['id'])) {
-
-    $article = $myArticles->genFind('id', $_GET['id']);
+    $articleId = $_GET['id'];
+    $article = $myArticles->genFind('id', $articleId);
+    $comments = $myComment->genGetAll('articleId', $articleId);
 } else {
     $article = null;
+    $comments = [];
 }
 
+if (isset($_GET['action']) && $_GET['action'] === 'delete') {
+    $myComment->genDelete('id', $_GET['id']);
+}
 
-if (isset($_GET['id'])) {
+if (isset($_GET['action']) && $_GET['action'] === 'edit') {
     $comment = $myComment->genFind('id', $_GET['id']);
 } else {
-    $comment = false;
+    $comment = null;
 }
 
-// var_dump($comments, $article);
+// Sidebar (unchanged)
+$sidebar = $myArticles->newsTemplate('../newsTemplates/newssibebar.html.php', ['categories' => $categories, 'comments' => $comments]);
 
-// $postComments = $_POST['comment'];
-// // $userId = $_SESSION['id'] ?? null;
-// // $username = $_SESSION['username'] ?? null;
-// // $commentText = trim($_POST['comment'] ?? "");
-$articleId = $_GET['id'];
-// $postComments['articleId'] = $articleId;
-// if (isset($_POST['sendcomment'])) {
-//     $myComment->genSave($postComments);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sendcomment'])) {
+    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+        $username = $_SESSION['username'];
+        $postComments = $_POST['comment'];
+        $postComments['articleId'] = $articleId;
+        $postComments['username'] = $username;
 
-// } 
-if (isset($_POST['sendcomment'])) {
-    $postComments = $_POST['comment'];
-    $postComments['articleId'] = $articleId;
+        if (empty($postComments['id'])) {
+            unset($postComments['id']);
+        }
 
-    if (empty($postComments['id'])) {
-        unset($postComments['id']); // Ensure 'id' is not sent for new comments
+        $myComment->genSave($postComments);
+        // header("Location: articledetail.php?id=$articleId");
+        // exit;
+    } else {
+        header("Location: ../newsTemplates/login.html.php?redirect=articledetail.php?id=$articleId");
+        exit;
     }
-
-    $myComment->genSave($postComments);
-    header("Location: articledetail.php?id=$articleId");
-
-}
-
-$display = $myCategory->newsTemplate(
-    '../newsTemplates/articledetail.html.php',
-    ['article' => $article, 'comments' => $comments]
-);
-
-/*
-if ($commentText === "") {
-    $error = "Comment cannot be empty.";
-} elseif (!$userId) {
-    $error = "User not identified. Please log in again.";
-} else {
-    // Save the comment to the database
-    $myComment->genSave([
-        'id' => null, // Let the database auto-generate the ID
-        'username' => $username,
-        'articleId' => $articleId,
-        'comment' => $commentText,
-        'userId' => $userId
-    ]);
-
-    // Redirect to avoid form resubmission
-    header("Location: articledetail.php?id=$articleId");
 }
 
 
-// $display = $myArticles->newsTemplate('../adminTemplates/articledetail.html.php', ['article' => $article]);
-$display = $myCategory->newsTemplate('../newsTemplates/articledetail.html.php', ['article' => $article]);
-*/
+$display = $myCategory->newsTemplate('../newsTemplates/articledetail.html.php', ['article' => $article, 'comments' => $comments]);
+
 require '../newsTemplates/layout.html.php';

@@ -17,7 +17,7 @@ $sidebar = $myCategory->newsTemplate(
 $categories = $myCategory->genFindAll();
 
 $pageTitle = 'View Contacts';
-$subTitlte = 'Message board';
+$subTitle = '<h2>Message board</h2>';
 if (isset($_SESSION['loggedin'])) {
 
 

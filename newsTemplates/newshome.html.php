@@ -1,1 +1,1 @@
-<p>Welcome to Northampton News. All the local news and events.</p>
+<p>Welcome to Northampton News <?= $users['username'] ?? 'Guest' ?>. All the local news and events.</p>

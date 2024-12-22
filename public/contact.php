@@ -38,7 +38,4 @@ if (isset($_POST['submit'])) {
 }
 
 
-
-
-
 require '../newsTemplates/layout.html.php';

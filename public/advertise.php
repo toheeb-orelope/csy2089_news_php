@@ -11,7 +11,8 @@ $categories = $myCategory->genFindAll();
 
 $pageTitle = 'Northampton News - Advert';
 $subTitlte = 'Advertise with us';
-var_dump($categories);
+$sidebar = $myCategory->newsTemplate('../newsTemplates/newssibebar.html.php', ['categories' => $categories]);
+
 
 
 $articles = $myArticles->genFindAll();

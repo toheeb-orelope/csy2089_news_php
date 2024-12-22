@@ -1,1 +1,1 @@
-<h1>Information about advertisement coming soon</h1>
+<h1>Advertisement coming soon</h1>

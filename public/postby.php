@@ -13,7 +13,10 @@ $categories = $myCategory->genFindAll();
 $sidebar = $myArticles->newsTemplate('../newsTemplates/newssibebar.html.php', ['categories' => $categories]);
 
 $pageTitle = 'Home';
-$subTitlte = 'Articles published by ' . $_GET['username'];
+// $subTitle = '<h2>Articles published by ' . $_GET['username'] . '</h2>';
+$subTitle = '<h2>Articles published by <span style="font-weight: bold; color: blue;">' . htmlspecialchars($_GET['username']) . '</span></h2>';
+
+
 
 
 // $articles = $myArticles->genFindAll();

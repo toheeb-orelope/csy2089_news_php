@@ -23,7 +23,7 @@ $status = [];
 $status = $myStatus->getEnumValues();
 
 $pageTitle = 'Northampton News - Users';
-$subTitlte = 'Staffs';
+$subTitle = '<h2>Admin Dashboard</h2>';
 
 // $sidebar = require '../adminTemplates/sidebar.html.php';
 if (isset($_SESSION['loggedin'])) {

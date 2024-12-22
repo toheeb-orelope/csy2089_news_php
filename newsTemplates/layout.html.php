@@ -21,8 +21,8 @@
             <li><a href="#">Select Category</a>
                 <ul>
                     <?php foreach ($categories as $category) { ?>
-
-                        <li><a href="selectcategory.php?id=<?= $category['id'] ?>"><?= $category['name'] ?></a></li>
+                        <li><a href="selectcategory.php?id=<?= $category['id'] ?>">
+                                <?= $category['name'] ?></a></li>
                     <?php } ?>
                 </ul>
             </li>
@@ -36,7 +36,7 @@
         <?= $sidebar ?? '' ?>
 
         <article>
-            <?= $subTitlte ?? '' ?>
+            <?= $subTitle ?>
             <?= $display ?>
         </article>
     </main>

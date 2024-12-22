@@ -39,11 +39,19 @@ if (isset($_SESSION['loggedin'])) {
             // Save the article with the image ID and username
             $postArt = $_POST['article'];
             $postArt['imageId'] = $imageId;
-            $postArt['username'] = $username; // Add active user to the article data
+            $postArt['username'] = $username;
             $myArticles->genSave($postArt);
-            $myImage->redirectWithMessage('Image uploaded successfully!!!', 'success', 'editarticle.php');
+            $myImage->redirectWithMessage(
+                'Image uploaded successfully!!!',
+                'success',
+                'editarticle.php'
+            );
         } else {
-            $myImage->redirectWithMessage('Image upload failed.', 'bad', 'editarticle.php');
+            $myImage->redirectWithMessage(
+                'Image upload failed.',
+                'bad',
+                'editarticle.php'
+            );
             die('Image upload failed.');
         }
 
@@ -55,7 +63,10 @@ if (isset($_SESSION['loggedin'])) {
         );
     }
 } else {
-    $display = $myArticles->newsTemplate('../adminTemplates/login.html.php', []);
+    $display = $myArticles->newsTemplate(
+        '../adminTemplates/login.html.php',
+        []
+    );
 }
 
 require '../../newsTemplates/layout.html.php';

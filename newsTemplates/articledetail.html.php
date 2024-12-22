@@ -7,51 +7,53 @@
     </blockquote>
 <?php endif; ?>
 
-<!-- Display Comments -->
-<?php if (isset($comments) && $comments) { ?>
-    <ul>
-        <?php foreach ($comments as $comment) { ?>
-            <li>
-                <p><strong><?= $comment['username'] ?>:</strong> <?= nl2br(htmlspecialchars($comment['commenttext'])) ?></p>
-            </li>
-        <?php } ?>
-    </ul>
-<?php } else { ?>
-    <p>No comments yet. Be the first to comment!</p>
-<?php } ?>
+
+<?php
+if ($comments) {
+    echo '<table>';
+    foreach ($comments as $comment) {
+        echo '<tr>';
+        echo '<td><strong>' . htmlspecialchars($comment['username']) . '</strong></td>';
+        echo '<td>' . htmlspecialchars($comment['commenttext']) . '</td>';
+        echo '<td><a href="articledetail.php?action=edit&id=' . $comment['id'] . '">Edit</a></td>';
+        echo '<td><a href="articledetail.php?action=delete&id=' . $comment['id'] . '"
+         onclick="return confirm(\'Are you sure you want to delete this user?\');">Delete</a></td>';
+        echo '</tr>';
+    }
+    echo '</table>';
+} else {
+    echo '<p>No comments yet. Be the first to comment!</p>';
+}
+?>
+
+
+<!-- Add Comment Form -->
+<?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']): ?>
+
+    <form action="articledetail.php?id=<?= $article['id'] ?>" method="POST">
+
+        <input type="hidden" name="comment[id]" value="<?= $comment['id'] ?? '' ?>">
+
+        <label for="comment">Add Comment</label>
+        <textarea name="comment[commenttext]" rows="5" cols="40" placeholder="Write your comment here..."
+            required></textarea>
+
+        <input type="submit" name="sendcomment" value="Comment">
+    </form>
+<?php else: ?>
+    <p>
+        <a href="loginpage.php?redirect=articledetail.php?id=<?= $article['id'] ?>">Login</a> or
+        <a href="profile.php?redirect=articledetail.php?id=<?= $article['id'] ?>">Register</a> to comment.
+    </p>
+
+<?php endif; ?>
+
 
 <style>
     ul {
         list-style-type: none;
         margin: 0;
         padding: 0;
+        align-items: left;
     }
 </style>
-
-<!-- Add Comment Form -->
-<form action="articledetail.php?id=<?= $article['id'] ?>" method="POST">
-
-    <input type="hidden" name="comment[id]" value="<?= $comment['id'] ?? '' ?>">
-
-
-    <input type="hidden" name="comment[articleId]" value="<?= $article['id'] ?? '' ?>">
-
-    <label for="username">Username</label>
-    <input type="text" name="comment[username]" placeholder="Enter your username"
-        value="<?= $comment['username'] ?? '' ?>" required>
-
-    <label for="email">Email</label>
-    <input type="email" name="comment[email]" placeholder="Enter your email" value="<?= $comment['email'] ?? '' ?>"
-        required>
-
-    <label for="comment">Add Comment</label>
-    <textarea name="comment[commenttext]" rows="5" cols="40" placeholder="Write your comment here..."
-        required><?= $comment['commenttext'] ?? '' ?></textarea>
-
-    <input type="submit" name="sendcomment" value="Comment">
-</form>
-
-
-<?php if (!empty($error)): ?>
-    <p style="color: red;"><?= htmlspecialchars($error) ?></p>
-<?php endif; ?>
