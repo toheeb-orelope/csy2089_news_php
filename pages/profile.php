@@ -1,24 +1,10 @@
 <?php
-require '../functions/dbconfig.php';
-require '../functions/functions.php';
-require '../classes/database.php';
-
-
 /*
-
-firstreader23    @FirstReader23
-secondreader23    @SecondReader23
-thirdreader23    @ThirdReader23
-
-*/
-
-// Create an instance or object of a class
-$myCategory = new Database($pdo, 'category', 'id');
-$myReader = new Database($pdo, 'reader', 'id');
-
-$categories = $myCategory->genFindAll();
-
-$pageTitle = 'Northampton News - Profile';
+    firstreader23    @FirstReader23
+    secondreader23    @SecondReader23
+    thirdreader23    @ThirdReader23
+    */
+    $pageTitle = 'Northampton News - Profile';
 $subTitle = '<h2>Create Account</h2>';
 
 
@@ -53,5 +39,3 @@ if (isset($_POST['submit'])) {
 
     $display = $myCategory->newsTemplate('../newsTemplates/profile.html.php', []);
 }
-
-require '../newsTemplates/layout.html.php';

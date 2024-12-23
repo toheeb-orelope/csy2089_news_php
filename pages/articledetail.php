@@ -1,16 +1,4 @@
 <?php
-session_start();
-require '../functions/dbconfig.php';
-require '../functions/functions.php';
-require '../classes/database.php';
-
-
-$myArticles = new Database($pdo, 'article', 'id');
-$myCategory = new Database($pdo, 'category', 'id');
-$myComment = new Database($pdo, 'comments', 'id');
-$myReader = new Database($pdo, 'reader', 'id');
-
-$categories = $myCategory->genFindAll();
 
 $pageTitle = 'Article';
 $subTitle = '<h2>Article Details</h2>';
@@ -57,5 +45,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sendcomment'])) {
 
 
 $display = $myCategory->newsTemplate('../newsTemplates/articledetail.html.php', ['article' => $article, 'comments' => $comments]);
-
-require '../newsTemplates/layout.html.php';

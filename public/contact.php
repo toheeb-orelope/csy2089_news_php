@@ -14,7 +14,7 @@ $sidebar = $myContact->newsTemplate('../newsTemplates/newssibebar.html.php', ['c
 
 
 $pageTitle = 'Northampton News - Contact Us';
-$subTitlte = 'Contact Us';
+$subTitle = '<h2>Contact Us</h2>';
 
 if (isset($_GET['id'])) {
     $contact = $myContact->genFind('id', $_GET['id']);

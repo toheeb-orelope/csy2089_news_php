@@ -16,18 +16,18 @@
     </header>
     <nav>
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="latest.php">Latest Articles</a></li>
+            <li><a href="/newshome">Home</a></li>
+            <li><a href="/latest">Latest Articles</a></li>
             <li><a href="#">Select Category</a>
                 <ul>
                     <?php foreach ($categories as $category) { ?>
-                        <li><a href="selectcategory.php?id=<?= $category['id'] ?>">
+                        <li><a href="selectcategory?id=<?= $category['id'] ?>">
                                 <?= $category['name'] ?></a></li>
                     <?php } ?>
                 </ul>
             </li>
-            <li><a href="contact.php">Contact us</a></li>
-            <li><a href="advertise.php">Advertise with us</a></li>
+            <li><a href="/contact">Contact us</a></li>
+            <li><a href="/advertise">Advertise with us</a></li>
         </ul>
     </nav>
     <img src="/images/banners/randombanner.php" />

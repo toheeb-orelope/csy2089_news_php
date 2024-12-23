@@ -18,7 +18,7 @@ $categories = $myCategory->genFindAll();
 
 
 $pageTitle = 'Northampton News - Sport';
-$subTitlte = 'Latest News';
+$subTitle = '<h2>Latest News</h2>';
 
 
 // $stmt = $pdo->prepare('SELECT * FROM article ORDER by date desc');

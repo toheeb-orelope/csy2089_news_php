@@ -1,4 +1,4 @@
-<form action="profile.php" method="POST">
+<form action="profile" method="POST">
 
     <input type="hidden" name="profile[id]" value="<?= $profile['id'] ?? '' ?>">
 

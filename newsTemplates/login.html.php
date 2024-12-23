@@ -1,4 +1,4 @@
-<form action="loginpage.php" method="POST">
+<form action="loginpage" method="POST">
 
 
     <label>Username</label>

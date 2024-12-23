@@ -176,7 +176,7 @@ class Database
     function genGetAll($field, $value)
     {
         $query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $field . '= :value';
-        var_dump($query, $value);
+        // var_dump($query, $value);
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['value' => $value]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

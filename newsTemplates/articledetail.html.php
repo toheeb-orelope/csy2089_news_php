@@ -1,7 +1,7 @@
 <?php if ($article): ?>
     <blockquote>
         <h2><?= htmlspecialchars($article['title']) ?></h2>
-        <h3>Published By: <a href="postby.php?username=<?= $article['username'] ?>"><?= $article['username'] ?></a></h3>
+        <h3>Published By: <a href="postby?username=<?= $article['username'] ?>"><?= $article['username'] ?></a></h3>
         <p><strong>Date Published:</strong> <?= htmlspecialchars($article['date']) ?></p>
         <p><?= nl2br(htmlspecialchars($article['description'])) ?></p>
     </blockquote>
@@ -15,8 +15,8 @@ if ($comments) {
         echo '<tr>';
         echo '<td><strong>' . htmlspecialchars($comment['username']) . '</strong></td>';
         echo '<td>' . htmlspecialchars($comment['commenttext']) . '</td>';
-        echo '<td><a href="articledetail.php?action=edit&id=' . $comment['id'] . '">Edit</a></td>';
-        echo '<td><a href="articledetail.php?action=delete&id=' . $comment['id'] . '"
+        echo '<td><a href="articledetail?action=edit&id=' . $comment['id'] . '">Edit</a></td>';
+        echo '<td><a href="articledetail?action=delete&id=' . $comment['id'] . '"
          onclick="return confirm(\'Are you sure you want to delete this user?\');">Delete</a></td>';
         echo '</tr>';
     }
@@ -30,7 +30,7 @@ if ($comments) {
 <!-- Add Comment Form -->
 <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']): ?>
 
-    <form action="articledetail.php?id=<?= $article['id'] ?>" method="POST">
+    <form action="articledetail?id=<?= $article['id'] ?>" method="POST">
 
         <input type="hidden" name="comment[id]" value="<?= $comment['id'] ?? '' ?>">
 
@@ -42,8 +42,8 @@ if ($comments) {
     </form>
 <?php else: ?>
     <p>
-        <a href="loginpage.php?redirect=articledetail.php?id=<?= $article['id'] ?>">Login</a> or
-        <a href="profile.php?redirect=articledetail.php?id=<?= $article['id'] ?>">Register</a> to comment.
+        <a href="loginpage?redirect=articledetail?id=<?= $article['id'] ?>">Login</a> or
+        <a href="profile?redirect=articledetail?id=<?= $article['id'] ?>">Register</a> to comment.
     </p>
 
 <?php endif; ?>

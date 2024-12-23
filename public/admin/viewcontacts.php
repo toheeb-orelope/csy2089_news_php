@@ -54,7 +54,7 @@ if (isset($_SESSION['loggedin'])) {
 
     // $contacts = $myContact->genFindAll();
 
-    $display = newsTemlate(
+    $display = newsTemplates(
         '../adminTemplates/viewcontact.html.php',
         ['contacts' => $contacts]
     );

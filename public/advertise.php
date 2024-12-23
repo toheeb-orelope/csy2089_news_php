@@ -10,7 +10,7 @@ $myCategory = new Database($pdo, 'category', 'id');
 $categories = $myCategory->genFindAll();
 
 $pageTitle = 'Northampton News - Advert';
-$subTitlte = 'Advertise with us';
+$subTitle = '<h2>Advertise with us</h2>';
 $sidebar = $myCategory->newsTemplate('../newsTemplates/newssibebar.html.php', ['categories' => $categories]);
 
 

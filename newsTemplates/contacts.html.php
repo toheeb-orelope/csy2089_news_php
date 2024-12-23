@@ -1,5 +1,5 @@
 <h2>Please fill the form below to contact us</h2>
-<form action="contact.php" method="POST">
+<form action="contact" method="POST">
 
     <input type="hidden" name="contact[id]" value="<?= $contact['id'] ?? '' ?>">
 
