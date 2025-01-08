@@ -18,7 +18,7 @@ class Controller
         return [
             'fileName' => '../newsTemplates/newshome.html.php',
             'variables' => [],
-            'pageTitle' => 'Northampton News - Home',
+            'pageTitle' => 'Home',
             'subTitle' => '<h2>Northampton News</h2>',
         ];
     }
@@ -29,7 +29,7 @@ class Controller
         return [
             'fileName' => '../newsTemplates/advertise.html.php',
             'variables' => [],
-            'pageTitle' => 'Northampton News - Advert',
+            'pageTitle' => 'Advert',
             'subTitle' => '<h2>Advertise with us</h2>',
         ];
     }
@@ -49,7 +49,7 @@ class Controller
             return [
                 'fileName' => '../newsTemplates/contacts.html.php',
                 'variables' => ['contact' => $contact],
-                'pageTitle' => 'Northampton News - Contact Us',
+                'pageTitle' => 'Contact Us',
                 'subTitle' => '<h2>Contact Us</h2>',
             ];
         }
@@ -62,7 +62,7 @@ class Controller
         return [
             'fileName' => '../newsTemplates/latest.html.php',
             'variables' => ['articles' => $articles],
-            'pageTitle' => 'Northampton News - Latest News',
+            'pageTitle' => 'Latest News',
             'subTitle' => '<h2>Latest News</h2>',
         ];
     }
@@ -73,7 +73,7 @@ class Controller
         return [
             'fileName' => '../newsTemplates/selectcategory.html.php',
             'variables' => ['articles' => $articles],
-            'pageTitle' => 'Northampton News - Select Category',
+            'pageTitle' => 'Select Category',
             'subTitle' => '<h2>Select Category</h2>',
         ];
     }
@@ -127,7 +127,7 @@ class Controller
                 'comments' => $comments,
                 'comment' => $comment
             ],
-            'pageTitle' => 'Northampton News - Article Detail',
+            'pageTitle' => 'Article Detail',
             'subTitle' => '<h2>Article Detail</h2>',
         ];
     }
@@ -143,7 +143,7 @@ class Controller
         return [
             'fileName' => '../newsTemplates/postby.html.php',
             'variables' => ['articles' => $articles],
-            'pageTitle' => 'Northampton News - Published Articles',
+            'pageTitle' => 'Published Articles',
             'subTitle' => '<h2>Articles published by <span style="font-weight: bold; color: blue;">'
                 . htmlspecialchars($_GET['username']) . '</span></h2>',
         ];
@@ -170,7 +170,7 @@ class Controller
                 return [
                     'fileName' => '../newsTemplates/newshome.html.php',
                     'variables' => ['users' => $users],
-                    'pageTitle' => 'Northampton News - Home',
+                    'pageTitle' => 'Login',
                     'subTitle' => '<h2>Northampton News</h2>',
                 ];
             } else {
@@ -181,7 +181,7 @@ class Controller
             return [
                 'fileName' => '../newsTemplates/login.html.php',
                 'variables' => [],
-                'pageTitle' => 'Northampton News - Login',
+                'pageTitle' => 'Login',
                 'subTitle' => '<h2>Login</h2>',
             ];
         }
@@ -221,7 +221,7 @@ class Controller
             return [
                 'fileName' => '../newsTemplates/profile.html.php',
                 'variables' => [],
-                'pageTitle' => 'Northampton News - Profile',
+                'pageTitle' => 'Profile',
                 'subTitle' => '<h2>Create Account</h2>',
             ];
         }

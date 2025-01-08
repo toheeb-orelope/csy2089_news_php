@@ -11,7 +11,7 @@ $myCategory = new Database($pdo, 'category', 'id');
 
 $sidebar = $myCategory->newsTemplate('../adminTemplates/sidebar.html.php', []);
 $pageTitle = 'Northampton News - Edit Category';
-$subTitlte = 'Add category';
+$subTitle = '<h2>Add category</ h2>';
 
 $categories = $myCategory->genFindAll();
 

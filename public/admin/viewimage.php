@@ -12,7 +12,7 @@ $myCategory = new Database($pdo, 'category', 'id');
 $categories = $myCategory->genFindAll();
 $sidebar = $myCategory->newsTemplate('../adminTemplates/sidebar.html.php', []);
 $pageTitle = 'Northampton News - Images';
-$subTitlte = 'Images';
+$subTitle = '<h2>Images</h2>';
 
 // $sidebar = require '../adminTemplates/sidebar.html.php';
 if (isset($_SESSION['loggedin'])) {

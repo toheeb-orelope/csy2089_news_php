@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sendcomment'])) {
         }
 
         $myComment->genSave($postComments);
-        // header("Location: articledetail.php?id=$articleId");
+        header("Location: articledetail.php?id=$articleId");
         // exit;
     } else {
         header("Location: ../newsTemplates/login.html.php?redirect=articledetail.php?id=$articleId");

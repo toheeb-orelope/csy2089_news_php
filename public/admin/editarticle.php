@@ -12,7 +12,7 @@ $myCategory = new Database($pdo, 'category', 'id');
 $myImage = new Database($pdo, 'images', 'id');
 
 $sidebar = $myArticles->newsTemplate('../adminTemplates/sidebar.html.php', []);
-$subTitle = 'Add Article';
+$subTitle = '<h2>Add Article</h2>';
 
 if (isset($_SESSION['loggedin'])) {
     $categories = $myCategory->genFindAll();

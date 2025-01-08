@@ -20,6 +20,7 @@ usernames           passwords
 firstUser24         MyPassword12@
 secondUser24        StrongPass123!
 anotheruser24       Admin24!
+Taofeeq2024         @Taofeeq2024!
 */
 
 if (isset($_POST['submit'])) {
@@ -41,7 +42,10 @@ if (isset($_POST['submit'])) {
 
 	if (isset($_SESSION['loggedin'])) {
 		$users = $myArticles->genFind('username', $_POST['username']);
-		$display = $myArticles->newsTemplate('../adminTemplates/adminHome.html.php', ['users' => $users]);
+		$display = $myArticles->newsTemplate(
+			'../adminTemplates/adminHome.html.php',
+			['users' => $users]
+		);
 	}
 
 } else {

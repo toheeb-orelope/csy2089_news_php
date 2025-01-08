@@ -10,7 +10,7 @@ $myCategory = new Database($pdo, 'category', 'id');
 
 
 $pageTitle = 'Northampton News - Categories';
-$subTitlte = 'categories';
+$subTitle = '<h2>Categories</h2>';
 
 $sidebar = $myCategory->newsTemplate('../adminTemplates/sidebar.html.php', []);
 

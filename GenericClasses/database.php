@@ -93,7 +93,7 @@ class Database
         $record['primKey'] = $record[$this->primKey];
         // var_dump($record, $query);
         $stmt = $this->pdo->prepare($query);
-        $stmt->execute($record);
+        return $stmt->execute($record);
 
     }
 
@@ -144,7 +144,7 @@ class Database
 
             if ($row) {
                 preg_match('/^enum\((.*)\)$/', $row['Type'], $matches);
-                return str_getcsv($matches[1], ",", "'");
+                return str_getcsv($matches[1], ",", "'", "\\");
             } else {
                 return []; // Return an empty array if the primKey isn't found
             }

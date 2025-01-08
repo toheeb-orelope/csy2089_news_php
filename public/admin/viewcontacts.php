@@ -9,6 +9,7 @@ require '../../classes/database.php';
 //create an instance or object of a classs
 $myContact = new Database($pdo, 'contactus', 'id');
 $myCategory = new Database($pdo, 'category', 'id');
+$myStatus = new Database($pdo, 'contactus', 'status');
 
 $sidebar = $myCategory->newsTemplate(
     '../adminTemplates/sidebar.html.php',
@@ -20,52 +21,29 @@ $pageTitle = 'View Contacts';
 $subTitle = '<h2>Message board</h2>';
 if (isset($_SESSION['loggedin'])) {
 
-
-    if (isset($_POST['update_status'])) {
-        $avaUser = $_SESSION['loggedin']['username'];
-
-        foreach ($_POST['status'] as $id => $newStatus) {
-            $id = filter_var($id, FILTER_VALIDATE_INT);
-            if ($id && in_array($newStatus, ['pending', 'done'])) {
-                $myContact->genUpdate([
-                    'id' => $id,
-                    'status' => $newStatus,
-                    'update_by_user' => $avaUser,
-                ]);
-            }
-        }
-
-        // Refresh contacts after the update
-        $contactsPending = $myContact->genGetAll('status', 'pending');
-        $contactsDone = $myContact->genGetAll('status', 'done');
-        $contacts = array_merge($contactsDone, $contactsPending);
-    }
-
+    $status = $myStatus->getEnumValues();
 
     //Search by keyword
     if (isset($_GET['keyword'])) {
         $contacts = $myContact->fetchByKeyword('status', $_GET['keyword']);
     } else {
-        $contactsPending = $myContact->genGetAll('status', 'pending');
-        $contactsDone = $myContact->genGetAll('status', 'done');
-        $contacts = array_merge($contactsDone, $contactsPending);
-        // var_dump($contactsDone, $contactsPending, $contacts);
+        $contacts = $myContact->genFindAll();
     }
 
-    // $contacts = $myContact->genFindAll();
+    // echo '<pre>';
+    // print_r($contacts);
+    // echo '</pre>';
 
     $display = newsTemplates(
         '../adminTemplates/viewcontact.html.php',
-        ['contacts' => $contacts]
+        ['contacts' => $contacts, 'status' => $status]
     );
 
 } else {
-
     $display = $myContact->newsTemplate(
-        '../adminTemplates/viewcontact.html.php',
+        '../adminTemplates/login.html.php',
         []
     );
-
 }
 
 require '../../newsTemplates/layout.html.php';

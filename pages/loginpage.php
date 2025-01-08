@@ -22,9 +22,10 @@ if (isset($_POST['submit'])) {
         $_SESSION['id'] = $users['id'];
         $display = $myReader->newsTemplate('../newsTemplates/newshome.html.php', ['users' => $users]);
     } else {
-        header('location: loginpage.php');
+        // header('location: loginpage.php');
+        header("Location: articledetail.php?id=$articleId");
     }
-    
+
 } else {
     $display = $myReader->newsTemplate('../newsTemplates/login.html.php', []);
 }

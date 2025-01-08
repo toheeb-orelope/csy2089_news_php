@@ -16,7 +16,7 @@ $categories = $myCategory->genFindAll();
 $sidebar = $myArticles->newsTemplate('../adminTemplates/sidebar.html.php', []);
 
 $pageTitle = 'Message';
-$subTitlte = 'Message';
+$$subTitle = '<h2>Message</h2>';
 if (isset($_SESSION['loggedin'])) {
 
 

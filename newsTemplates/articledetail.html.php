@@ -15,9 +15,7 @@ if ($comments) {
         echo '<tr>';
         echo '<td><strong>' . htmlspecialchars($comment['username']) . '</strong></td>';
         echo '<td>' . htmlspecialchars($comment['commenttext']) . '</td>';
-        echo '<td><a href="articledetail?action=edit&id=' . $comment['id'] . '">Edit</a></td>';
-        echo '<td><a href="articledetail?action=delete&id=' . $comment['id'] . '"
-         onclick="return confirm(\'Are you sure you want to delete this user?\');">Delete</a></td>';
+
         echo '</tr>';
     }
     echo '</table>';

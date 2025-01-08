@@ -21,9 +21,9 @@
             <li><a href="#">Select Category</a>
                 <ul>
                     <?php foreach ($categories as $category) { ?>
-                        <li><a href="selectcategory?id=<?= $category['id'] ?>">
-                                <?= $category['name'] ?></a></li>
+                        <li><a href="selectcategory?id=<?= $category['id'] ?>"><?= $category['name'] ?></a></li>
                     <?php } ?>
+
                 </ul>
             </li>
             <li><a href="/contact">Contact us</a></li>

@@ -1,9 +1,8 @@
 <?php
 require '../functions/dbconfig.php';
 require '../functions/functions.php';
-require '../classes/database.php';
-require '../controllers/controller.php';
-
+require '../GenericClasses/database.php';
+require '../IJDB/Controllers/controller.php';
 
 //create an instance or object of a classs
 $myCategory = new Database($pdo, 'category', 'id');
@@ -25,8 +24,6 @@ $myController = new Controller(
 
 
 $categories = $myCategory->genFindAll();
-$pageTitle = 'Northampton News - Home';
-$subTitle = '<h2>Northampton News</h2>';
 
 $sidebar = newsTemplates(
     '../newsTemplates/newssibebar.html.php',
@@ -41,16 +38,6 @@ $pageTitle = $page['pageTitle'];
 $subTitle = $page['subTitle'];
 $display = newsTemplates($page['fileName'], $page['variables']);
 
-
-
-// if (isset($_GET['id'])) {
-//     $articles = $myArticles->genFind('id', $_GET['id']);
-// } else {
-//     $article = null;
-// }
-
-
-// $display = $myCategory->newsTemplate('../newsTemplates/newshome.html.php', []);
 
 
 require '../newsTemplates/layout.html.php';

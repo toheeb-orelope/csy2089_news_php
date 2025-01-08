@@ -16,7 +16,6 @@
     <label>Article text:</label>
     <textarea name="article[description]"><?= $article['description'] ?? '' ?></textarea>
 
-    <label>Date:</label>
     <input type="hidden" name="article[date]"
         value="<?= $article['date'] ?? (new DateTime())->format('Y-m-d H:i:s') ?>" />
 
