@@ -1,19 +1,34 @@
 <?php foreach ($articles as $article) { ?>
         <blockquote>
-                <div>
+                <div class="articleContainer">
                         <?php
 
                         echo '<img src="../images/' . htmlspecialchars($article['imgFile'])
                                 . '" alt="Image" />';
 
                         ?>
-                        <h2><a href="articledetail?id=<?= $article['id'] ?>">
+                        <h2><a href="/news/articledetail?id=<?= $article['id'] ?>">
                                         <?= htmlspecialchars($article['title']) ?></a></h2>
                 </div>
 
-                <h3>Published By: <a href="postby?username=<?= $article['username'] ?>">
+                <h3>Published By: <a href="/news/postby?username=<?= $article['username'] ?>">
                                 <?= $article['username'] ?></a></h3>
                 <p><strong>Date Published: </strong>
                         <?= htmlspecialchars($article['date']) ?></p>
         </blockquote>
 <?php } ?>
+
+<style>
+        img {
+                width: 100px;
+                height: 100px;
+                margin-right: 20px;
+        }
+
+        .articleContainer {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+        }
+</style>

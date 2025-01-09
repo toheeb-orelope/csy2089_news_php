@@ -1,5 +1,6 @@
 <?php
 
+namespace IJDB\Controllers;
 class Cagetory
 {
     public function __construct(
@@ -9,21 +10,44 @@ class Cagetory
 
     public function list()
     {
-        $categories = $this->myCategory->genFindAll();
+        if (isset($_SESSION['loggedin'])) {
 
-        return [
-            'fileName' => '../../public/adminTemplates/category.html.php',
-            'variables' => ['categories' => $categories],
-            'pageTitle' => 'Category',
-            'subTitle' => '<h2>Category</h2>',
-        ];
+            $categories = $this->myCategory->genFindAll();
+
+            return [
+                'fileName' => '../adminTemplates/categories.html.php',
+                'variables' => ['categories' => $categories],
+                'pageTitle' => 'List of Category',
+                'subTitle' => '<h2>Category</h2>',
+                'sidebar' => '../adminTemplates/sidebar.html.php',
+            ];
+        } else {
+            return [
+                'fileName' => '../adminTemplates/login.html.php',
+                'variables' => [],
+                'pageTitle' => 'List of Category',
+                'subTitle' => '<h2>Category</h2>',
+                'sidebar' => '../adminTemplates/sidebar.html.php',
+            ];
+        }
     }
 
 
     public function delete()
     {
-        $this->myCategory->genDelete('id', $_POST['id']);
-        header('location: /categories');
+        if (isset($_SESSION['loggedin'])) {
+
+            $this->myCategory->genDelete('id', $_GET['id']);
+            header('location: /category/list');
+        } else {
+            return [
+                'fileName' => '../adminTemplates/login.html.php',
+                'variables' => [],
+                'pageTitle' => 'Category',
+                'subTitle' => '<h2>Category</h2>',
+                'sidebar' => '../adminTemplates/sidebar.html.php',
+            ];
+        }
     }
 
     public function edit()
@@ -46,19 +70,30 @@ class Cagetory
                 header('location: /category/list');
             } else {
 
-                $this->myCategory->newsTemplate('../../public/adminTemplates/editcategory.html.php', ['category' => $category]);
+                return [
+                    'fileName' => '../adminTemplates/editcategory.html.php',
+                    'variables' => ['category' => $category],
+                    'pageTitle' => 'Category',
+                    'subTitle' => '<h2>Category</h2>',
+                    'sidebar' => '../adminTemplates/sidebar.html.php',
+                ];
 
             }
         } else {
-
-            $this->myCategory->newsTemplate('../../public/adminTemplates/login.html.php', []);
-
+            return [
+                'fileName' => '../adminTemplates/login.html.php',
+                'variables' => [],
+                'pageTitle' => 'Category',
+                'subTitle' => '<h2>Category</h2>',
+                'sidebar' => '../adminTemplates/sidebar.html.php',
+            ];
         }
         return [
             'fileName' => '../../public/adminTemplates/layout.html.php',
             'variables' => ['category' => $category],
             'pageTitle' => 'Category',
             'subTitle' => '<h2>Category</h2>',
+            'sidebar' => '../adminTemplates/sidebar.html.php',
         ];
     }
 

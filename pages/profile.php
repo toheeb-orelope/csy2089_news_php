@@ -1,10 +1,19 @@
 <?php
 /*
-    firstreader23    @FirstReader23
-    secondreader23    @SecondReader23
-    thirdreader23    @ThirdReader23
-    */
-    $pageTitle = 'Northampton News - Profile';
+
+firstreader23    @FirstReader23
+secondreader23    @SecondReader23
+thirdreader23    @ThirdReader23
+
+*/
+
+// Create an instance or object of a class
+$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$myReader = new \GenericClasses\DatabaseTable($pdo, 'reader', 'id');
+
+$categories = $myCategory->genFindAll();
+
+$pageTitle = 'Northampton News - Profile';
 $subTitle = '<h2>Create Account</h2>';
 
 

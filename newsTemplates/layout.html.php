@@ -16,24 +16,27 @@
     </header>
     <nav>
         <ul>
-            <li><a href="/newshome">Home</a></li>
-            <li><a href="/latest">Latest Articles</a></li>
+            <li><a href="/news/home">Home</a></li>
+            <li><a href="/news/latest">Latest Articles</a></li>
             <li><a href="#">Select Category</a>
                 <ul>
                     <?php foreach ($categories as $category) { ?>
-                        <li><a href="selectcategory?id=<?= $category['id'] ?>"><?= $category['name'] ?></a></li>
+                        <li><a href="/news/selectcategory?id=<?= $category['id'] ?>"><?= $category['name'] ?></a></li>
                     <?php } ?>
 
                 </ul>
             </li>
-            <li><a href="/contact">Contact us</a></li>
-            <li><a href="/advertise">Advertise with us</a></li>
+            <li><a href="/news/contact">Contact us</a></li>
+            <li><a href="/news/advertise">Advertise with us</a></li>
         </ul>
     </nav>
     <img src="/images/banners/randombanner.php" />
     <main>
 
-        <?= $sidebar ?? '' ?>
+        <?php
+        if (isset($sidebar)) {
+            require $sidebar;
+        } ?>
 
         <article>
             <?= $subTitle ?>

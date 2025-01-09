@@ -1,82 +1,126 @@
 <?php
-
+namespace IJDB\Controllers;
 class Article
 {
 
     public function __construct(
         public $myArticles,
         public $myCategory,
-        public $myImage
+        public $myComment,
+        public $myReader,
     ) {
     }
 
     public function list()
     {
-        $articles = $this->myArticles->genFindAll();
+        if (isset($_SESSION['loggedin'])) {
 
-        return [
-            'fileName' => '../../public/adminTemplates/article.html.php',
-            'variables' => ['articles' => $articles],
-            'pageTitle' => 'Article',
-            'subTitle' => '<h2>Article</h2>',
-        ];
+            $articles = $this->myArticles->genFindAll();
+
+            return [
+                'fileName' => '../adminTemplates/articles.html.php',
+                'variables' => ['articles' => $articles],
+                'pageTitle' => 'List of Article',
+                'subTitle' => '<h2>Article</h2>',
+                'sidebar' => '../adminTemplates/sidebar.html.php',
+            ];
+        } else {
+            return [
+                'fileName' => '../adminTemplates/login.html.php',
+                'variables' => [],
+                'pageTitle' => 'List of Article',
+                'subTitle' => '<h2>Article</h2>',
+                'sidebar' => '../adminTemplates/sidebar.html.php',
+            ];
+        }
     }
 
 
     public function edit()
     {
+
         if (isset($_SESSION['loggedin'])) {
             $categories = $this->myCategory->genFindAll();
-            $images = $this->myImage->genFindAll();
 
             if (isset($_GET['id'])) {
-                $articles = $this->myArticles->genFind('id', $_GET['id']);
+                $article = $this->myArticles->genFind('id', $_GET['id']);
             } else {
-                $articles = 'No record to update';
+                $article = 'No record to insert';
             }
+
+
 
             if (isset($_POST['submit'])) {
 
                 $username = $_SESSION['username'];
-                // Insert the uploaded image and retrieve the image ID
-                $imageId = $this->myImage->letInsertImage(
-                    $_FILES['imgfile'],
-                    $this->myImage
-                );
 
-                if ($imageId) {
-                    // Save the article with the image ID and username
-                    $postArt = $_POST['article'];
-                    $postArt['imageId'] = $imageId;
-                    $postArt['username'] = $username;
-                    $this->myArticles->genSave($postArt);
-                    header('location: /article/list');
-                }
+                $imgFile = $_FILES['imgFile']['name'];
+                $tempName = $_FILES['imgFile']['tmp_name'];
+                // Generate a unique file name
+                //https://stackoverflow.com/questions/8810656/change-file-name-to-uniqid-in-php
+                $uniqueFileName = uniqid() . '_' . time() . '.' . pathinfo($imgFile, PATHINFO_EXTENSION);
+                $folderName = 'images/' . $uniqueFileName;
+                $imageData = ['imgFile' => $uniqueFileName];
+                $postArt = $_POST['article'];
+                $postArt['imgFile'] = $uniqueFileName;
+                $postArt['username'] = $username;
+                $this->myArticles->genSave($postArt);
+                move_uploaded_file($tempName, $folderName);
+                header('location: /article/list');
 
                 // header('location: articles.php');
             } else {
-                $this->myArticles->newsTemplate(
-                    '../../public/adminTemplates/editarticle.html.php',
-                    ['article' => $articles, 'categories' => $categories]
-                );
+
+                return [
+                    'fileName' => '../adminTemplates/editarticle.html.php',
+                    'variables' => ['categories' => $categories, 'article' => $article],
+                    'pageTitle' => 'Edit Article',
+                    'subTitle' => '<h2>Article</h2>',
+                    'sidebar' => '../adminTemplates/sidebar.html.php',
+                ];
             }
         } else {
-            $this->myArticles->newsTemplate(
-                '../../public/adminTemplates/login.html.php',
-                []
-            );
+
+            return [
+                'fileName' => '../adminTemplates/login.html.php',
+                'variables' => [],
+                'pageTitle' => 'Edit Article',
+                'subTitle' => '<h2>Article</h2>',
+                'sidebar' => '../adminTemplates/sidebar.html.php',
+            ];
         }
         return [
-            'fileName' => '../../public/adminTemplates/layout.html.php',
-            'variables' => ['article' => $articles, 'categories' => $categories],
-            'pageTitle' => 'Article',
+            'fileName' => '../adminTemplates/layout.html.php',
+            'variables' => ['article' => $article, 'categories' => $categories],
+            'pageTitle' => 'Edit Article',
             'subTitle' => '<h2>Article</h2>',
+            'sidebar' => '../adminTemplates/sidebar.html.php',
         ];
     }
 
     public function delete()
     {
-        $this->myArticles->genDelete('id', $_POST['id']);
-        header('location: /article/list');
+        if (isset($_SESSION['loggedin'])) {
+
+            $this->myArticles->genDelete('id', $_GET['id']);
+
+            header('location: /article/list');
+
+            return [
+                'fileName' => '../adminTemplates/layout.html.php',
+                'variables' => [],
+                'pageTitle' => 'delete Article',
+                'subTitle' => '<h2>Article</h2>',
+                'sidebar' => '../adminTemplates/sidebar.html.php',
+            ];
+        } else {
+            return [
+                'fileName' => '../adminTemplates/login.html.php',
+                'variables' => [],
+                'pageTitle' => 'delete Article',
+                'subTitle' => '<h2>Article</h2>',
+                'sidebar' => '../adminTemplates/sidebar.html.php',
+            ];
+        }
     }
 }

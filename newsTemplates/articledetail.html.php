@@ -1,7 +1,7 @@
 <?php if ($article): ?>
     <blockquote>
         <h2><?= htmlspecialchars($article['title']) ?></h2>
-        <h3>Published By: <a href="postby?username=<?= $article['username'] ?>"><?= $article['username'] ?></a></h3>
+        <h3>Published By: <a href="/news/postby?username=<?= $article['username'] ?>"><?= $article['username'] ?></a></h3>
         <p><strong>Date Published:</strong> <?= htmlspecialchars($article['date']) ?></p>
         <p><?= nl2br(htmlspecialchars($article['description'])) ?></p>
     </blockquote>
@@ -40,8 +40,8 @@ if ($comments) {
     </form>
 <?php else: ?>
     <p>
-        <a href="loginpage?redirect=articledetail?id=<?= $article['id'] ?>">Login</a> or
-        <a href="profile?redirect=articledetail?id=<?= $article['id'] ?>">Register</a> to comment.
+        <a href="/news/loginpage?redirect=articledetail?id=<?= $article['id'] ?>">Login</a> or
+        <a href="/news/profile?redirect=articledetail?id=<?= $article['id'] ?>">Register</a> to comment.
     </p>
 
 <?php endif; ?>

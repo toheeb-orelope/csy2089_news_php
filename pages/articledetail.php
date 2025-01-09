@@ -1,5 +1,12 @@
 <?php
 
+$myArticles = new \GenericClasses\DatabaseTable($pdo, 'article', 'id');
+$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$myComment = new \GenericClasses\DatabaseTable($pdo, 'comments', 'id');
+$myReader = new \GenericClasses\DatabaseTable($pdo, 'reader', 'id');
+
+$categories = $myCategory->genFindAll();
+
 $pageTitle = 'Article';
 $subTitle = '<h2>Article Details</h2>';
 $action = $_GET['action'] ?? null;
@@ -35,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sendcomment'])) {
         }
 
         $myComment->genSave($postComments);
-        // header("Location: articledetail.php?id=$articleId");
+        header("Location: articledetail.php?id=$articleId");
         // exit;
     } else {
         header("Location: ../newsTemplates/login.html.php?redirect=articledetail.php?id=$articleId");
