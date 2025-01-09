@@ -26,7 +26,7 @@
     <input type="text" name="article[username]" value="<?= $_SESSION['loggedin']['username'] ?? '' ?>" readonly />
 
     <label>Upload Image:</label>
-    <input type="file" name="imgfile" />
+    <input type="file" name="imgFile" />
 
     <input type="submit" value="Submit" name="submit" />
 </form>

@@ -2,7 +2,7 @@
 session_start();
 require '../../functions/functions.php';
 require '../../functions/dbconfig.php';
-require '../../classes/database.php';
+require '../../GenericClasses/database.php';
 
 // Create an instance of the Database class
 $myComment = new Database($pdo, 'comments', 'id');

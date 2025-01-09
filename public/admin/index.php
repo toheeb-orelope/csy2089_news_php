@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../../classes/database.php';
+require '../../GenericClasses/database.php';
 require '../../functions/dbconfig.php';
 require '../../functions/functions.php';
 

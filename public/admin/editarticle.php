@@ -2,7 +2,7 @@
 session_start();
 require '../../functions/functions.php';
 require '../../functions/dbconfig.php';
-require '../../classes/database.php';
+require '../../GenericClasses/database.php';
 
 $pageTitle = 'Northampton News - Article';
 
@@ -16,7 +16,6 @@ $subTitle = '<h2>Add Article</h2>';
 
 if (isset($_SESSION['loggedin'])) {
     $categories = $myCategory->genFindAll();
-    $images = $myImage->genFindAll();
 
     if (isset($_GET['id'])) {
         $articles = $myArticles->genFind('id', $_GET['id']);
@@ -29,31 +28,18 @@ if (isset($_SESSION['loggedin'])) {
     if (isset($_POST['submit'])) {
 
         $username = $_SESSION['username'];
-        // Insert the uploaded image and retrieve the image ID
-        $imageId = $myImage->letInsertImage(
-            $_FILES['imgfile'],
-            $myImage
-        );
 
-        if ($imageId) {
-            // Save the article with the image ID and username
-            $postArt = $_POST['article'];
-            $postArt['imageId'] = $imageId;
-            $postArt['username'] = $username;
-            $myArticles->genSave($postArt);
-            $myImage->redirectWithMessage(
-                'Image uploaded successfully!!!',
-                'success',
-                'editarticle.php'
-            );
-        } else {
-            $myImage->redirectWithMessage(
-                'Image upload failed.',
-                'bad',
-                'editarticle.php'
-            );
-            die('Image upload failed.');
-        }
+        $imgFile = $_FILES['imgFile']['name'];
+        $tempName = $_FILES['imgFile']['tmp_name'];
+        //Need to change the file name to a unique name
+        $folderName = '../images/' . $imgFile;
+        $imageData = ['imgFile' => $imgFile];
+        $postArt = $_POST['article'];
+        $postArt['imgFile'] = $imgFile;
+        $postArt['username'] = $username;
+        $myArticles->genSave($postArt);
+        move_uploaded_file($tempName, $folderName);
+        header('location: articles.php');
 
         // header('location: articles.php');
     } else {

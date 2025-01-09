@@ -174,7 +174,7 @@ class Controller
                     'subTitle' => '<h2>Northampton News</h2>',
                 ];
             } else {
-                header('location: loginpage');
+                header('location: ');
             }
         } else {
 
@@ -204,7 +204,7 @@ class Controller
 
                 $this->myReader->genSave($_POST['profile']);
 
-                header('location: newshome');
+                header('location: loginpage');
                 exit;
             } else {
                 echo 'Please fill in required fields to create an account';

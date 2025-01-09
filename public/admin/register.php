@@ -2,7 +2,7 @@
 
 require '../../functions/functions.php';
 require '../../functions/dbconfig.php';
-require '../../classes/database.php';
+require '../../GenericClasses/database.php';
 
 //create an instance or object of a classs
 $myUsers = new Database($pdo, 'accounts', 'id');

@@ -2,12 +2,10 @@
         <blockquote>
                 <div>
                         <?php
-                        if (isset($image['id']) && $image['id'] == $article['imageId']) {
-                                echo '<img src="../images/' . htmlspecialchars($image['imgfile'])
-                                        . '" alt="Image" />';
-                        } else {
-                                echo '<img src="../images/noimage.png" alt="No Image" />';
-                        }
+
+                        echo '<img src="../images/' . htmlspecialchars($article['imgFile'])
+                                . '" alt="Image" />';
+
                         ?>
                         <h2><a href="articledetail?id=<?= $article['id'] ?>">
                                         <?= htmlspecialchars($article['title']) ?></a></h2>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
 	Random image script, picks a file at random from the current directory
 
@@ -19,7 +19,7 @@ foreach (new DirectoryIterator('./') as $file) {
 	if ($file->isDot()) {
 		continue;
 	}
-	
+
 	if (!strpos($file->getFileName(), '.jpg')) {
 		continue;
 	}
@@ -31,7 +31,7 @@ foreach (new DirectoryIterator('./') as $file) {
 header('Content-Type: image/jpeg');
 
 
-$contents = file_get_contents('./' . $files[rand(0,count($files)-1)]);
+$contents = file_get_contents('./' . $files[rand(0, count($files) - 1)]);
 header('Content-Length: ' . strlen($contents));
 
 echo $contents;
