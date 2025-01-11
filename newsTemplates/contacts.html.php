@@ -1,5 +1,5 @@
 <h2>Please fill the form below to contact us</h2>
-<form action="contact" method="POST">
+<form action="/news/contact" method="POST">
 
     <input type="hidden" name="contact[id]" value="<?= $contact['id'] ?? '' ?>">
 
@@ -22,3 +22,13 @@
 
 <p>Email enquiries@northamptonnews.com</p>
 <p>Telephone 01604 112 112</p> -->
+<style>
+    a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #f00;
+    }
+</style>

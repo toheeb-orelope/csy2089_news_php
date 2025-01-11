@@ -1,4 +1,4 @@
-<form action="profile" method="POST">
+<form action="/news/profile" method="POST">
 
     <input type="hidden" name="profile[id]" value="<?= $profile['id'] ?? '' ?>">
 
@@ -17,3 +17,14 @@
 
     <input type="submit" name="submit" value="<?= isset($profile['id']) ? 'Update' : 'Sign Up' ?>" class="add_btn">
 </form>
+
+<style>
+    a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #f00;
+    }
+</style>

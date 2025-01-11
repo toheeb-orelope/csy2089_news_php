@@ -1,4 +1,4 @@
-<form action="register.php" method="POST">
+<form action="/admin/user" method="POST">
 
     <input type="hidden" name="accounts[id]" value="<?= $account['id'] ?? '' ?>">
 

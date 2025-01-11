@@ -4,12 +4,16 @@
         <h3>Published By: <a href="/news/postby?username=<?= $article['username'] ?>"><?= $article['username'] ?></a></h3>
         <p><strong>Date Published:</strong> <?= htmlspecialchars($article['date']) ?></p>
         <p><?= nl2br(htmlspecialchars($article['description'])) ?></p>
+        <div class="image-container">
+            <?php echo '<img src="../images/' . htmlspecialchars($article['imgFile']) . '" alt="Image" />'; ?>
+        </div>
     </blockquote>
 <?php endif; ?>
 
 
 <?php
 if ($comments) {
+    echo '<p>Comments</p>';
     echo '<table>';
     foreach ($comments as $comment) {
         echo '<tr>';
@@ -53,5 +57,20 @@ if ($comments) {
         margin: 0;
         padding: 0;
         align-items: left;
+    }
+
+    a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #f00;
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
 </style>

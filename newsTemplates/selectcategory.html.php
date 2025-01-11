@@ -31,4 +31,13 @@
                 justify-content: space-between;
                 align-items: center;
         }
+
+        a {
+                color: #333;
+                text-decoration: none;
+        }
+
+        a:hover {
+                color: #f00;
+        }
 </style>

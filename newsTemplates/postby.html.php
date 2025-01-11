@@ -6,3 +6,15 @@ foreach ($articles as $article) {
     echo '</td>';
 }
 echo '</table>';
+?>
+
+<style>
+    a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #f00;
+    }
+</style>
