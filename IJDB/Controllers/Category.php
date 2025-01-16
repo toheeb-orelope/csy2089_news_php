@@ -1,7 +1,7 @@
 <?php
 
 namespace IJDB\Controllers;
-class Cagetory
+class Category
 {
     public function __construct(
         public $myCategory

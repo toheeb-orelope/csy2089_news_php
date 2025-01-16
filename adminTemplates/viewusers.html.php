@@ -46,4 +46,4 @@ foreach ($users as $user) {
     echo '</td>';
 }
 echo '</table>';
-
+?>

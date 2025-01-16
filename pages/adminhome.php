@@ -1,6 +1,5 @@
 <?php
-$pageTitle = 'Home';
-$subTitle = '<h2>Admin Home</h2>';
+
 
 /*
 usernames           passwords

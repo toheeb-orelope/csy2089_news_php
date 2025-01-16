@@ -30,9 +30,10 @@ if ($comments) {
 
 
 <!-- Add Comment Form -->
+<?= var_dump($_SESSION) ?>
 <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']): ?>
 
-    <form action="articledetail?id=<?= $article['id'] ?>" method="POST">
+    <form action="/news/articledetail?id=<?= $article['id'] ?>" method="POST">
 
         <input type="hidden" name="comment[id]" value="<?= $comment['id'] ?? '' ?>">
 
@@ -44,8 +45,8 @@ if ($comments) {
     </form>
 <?php else: ?>
     <p>
-        <a href="/news/loginpage?redirect=articledetail?id=<?= $article['id'] ?>">Login</a> or
-        <a href="/news/profile?redirect=articledetail?id=<?= $article['id'] ?>">Register</a> to comment.
+        <a href="/news/loginpage?redirect=/news/articledetail?id=<?= $article['id'] ?>">Login</a> or
+        <a href="/news/profile?redirect=/news/articledetail?id=<?= $article['id'] ?>">Register</a> to comment.
     </p>
 
 <?php endif; ?>

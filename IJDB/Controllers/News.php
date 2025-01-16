@@ -120,7 +120,7 @@ class News
                 // header("Location: articledetail.php?id=$articleId");
                 // exit;
             } else {
-                header("Location: ../newsTemplates/login.html.php?redirect=articledetail.php?id=$articleId");
+                header("Location: ../newsTemplates/login.html.php?redirect=/news/articledetail?id=$articleId");
                 exit;
             }
         }
@@ -172,17 +172,15 @@ class News
                 $_SESSION['loggedin'] = true;
                 $_SESSION['username'] = $users['username'];
                 $_SESSION['id'] = $users['id'];
-                // header('location: newshome');
-                return [
-                    'fileName' => '../newsTemplates/newshome.html.php',
-                    'variables' => ['users' => $users],
-                    'pageTitle' => 'Login',
-                    'subTitle' => '<h2>Northampton News</h2>',
-                    'sidebar' => '../newsTemplates/newssibebar.html.php',
-                ];
-            } else {
-                header('location: ');
+                header('location: /news/home');
             }
+            return [
+                'fileName' => '../newsTemplates/login.html.php',
+                'variables' => [],
+                'pageTitle' => 'Login',
+                'subTitle' => '<h2>Login</h2>',
+                'sidebar' => '../newsTemplates/newssibebar.html.php',
+            ];
         } else {
 
             return [
@@ -236,4 +234,12 @@ class News
         }
     }
 
+
+    public function logout()
+    {
+
+        session_destroy();
+        header('location: /news/home');
+
+    }
 }

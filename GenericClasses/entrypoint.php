@@ -11,11 +11,11 @@ class EntryPoint
         $pageName = ltrim(explode('?', $_SERVER['REQUEST_URI'])[0], '/');
         $page = $this->routes->getPage($pageName);
         $sidebar = $page['sidebar'] ?? null;
-        $pageTitle = $page['title']; // Ensure this line uses 'title'
-        $layoutVar = $this->routes->getLoyout();
-        $layoutVar['pageTitle'] = $page['title']; // Ensure this line uses 'title'
+        $pageTitle = $page['title'];
+        $layoutVar = $this->routes->getLayout();
+        $layoutVar['pageTitle'] = $page['title'];
         $layoutVar['sidebar'] = $page['sidebar'];
-        $layoutVar['subTitle'] = $page['subTitle'] ?? '';
+        $layoutVar['subTitle'] = $page['subTitle'] ?? ''; // Ensure subTitle is set
         $layoutVar['display'] = $this->loadTemplate($page['tempName'], $page['variables']);
         echo $this->loadTemplate('../newsTemplates/layout.html.php', $layoutVar);
     }

@@ -37,8 +37,13 @@ class Admin
                 $_SESSION['username'] = $users['username'];
                 $_SESSION['id'] = $users['id'];
             } else {
-                echo 'Username and password do not match.😒😒😒 <a href="index.php"> Please try again </a>';
-                // header('location: index.php');
+                return [
+                    'fileName' => '../adminTemplates/error.html.php',
+                    'variables' => [],
+                    'pageTitle' => $pageTitle,
+                    'subTitle' => $subTitle,
+                    'sidebar' => '../adminTemplates/sidebar.html.php',
+                ];
             }
 
 
@@ -49,7 +54,7 @@ class Admin
                     'fileName' => '../adminTemplates/adminHome.html.php',
                     'variables' => ['users' => $users],
                     'pageTitle' => $pageTitle,
-                    'subTitle' => $subTitle,
+                    'subTitle' => '<h2>Admin Home</h2>',
                     'sidebar' => '../adminTemplates/sidebar.html.php',
                 ];
             }

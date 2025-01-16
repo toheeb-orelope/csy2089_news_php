@@ -1,8 +1,11 @@
 <?php
-$pageTitle = 'Northampton News - Home';
+$pageTitle = 'Home';
 $subTitle = '<h2>Northampton News</h2>';
 
-$sidebar = $myArticles->newsTemplate('../newsTemplates/newssibebar.html.php', ['categories' => $categories]);
+$sidebar = $myArticles->newsTemplate(
+    '../newsTemplates/newssibebar.html.php',
+    ['categories' => $categories]
+);
 
 
 

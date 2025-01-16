@@ -29,7 +29,7 @@ class Routes
             $myReader
         );
 
-        $controllers['category'] = new \IJDB\Controllers\Cagetory($this->myCategory);
+        $controllers['category'] = new \IJDB\Controllers\Category($this->myCategory);
         $controllers['admin'] = new \IJDB\Controllers\Admin(
             $myArticles,
             $this->myCategory,
@@ -73,11 +73,12 @@ class Routes
             'title' => $page['pageTitle'],
             'tempName' => $page['fileName'],
             'variables' => $page['variables'],
-            'sidebar' => $page['sidebar'] ?? null
+            'sidebar' => $page['sidebar'] ?? null,
+            'subTitle' => $page['subTitle'] ?? ''
         ];
     }
 
-    public function getLoyout()
+    public function getLayout()
     {
         $categories = $this->myCategory->genFindAll();
         return [
