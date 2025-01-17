@@ -1,13 +1,13 @@
 <?php
 
 //create an instance or object of a classs
-$myArticles = new \GenericClasses\DatabaseTable($pdo, 'article', 'id');
-$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$articlesRecord = new \GenericClasses\DatabaseTable($pdo, 'article', 'id');
+$categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
 
 
-$categories = $myCategory->genFindAll();
+$categories = $categoryRecord->genFindAll();
 
-$sidebar = $myArticles->newsTemplate('../adminTemplates/sidebar.html.php', []);
+$sidebar = $articlesRecord->newsTemplate('../adminTemplates/sidebar.html.php', []);
 
 $pageTitle = 'Message';
 $$subTitle = '<h2>Message</h2>';
@@ -21,7 +21,7 @@ if (isset($_SESSION['loggedin'])) {
 
     unset($_SESSION['message'], $_SESSION['redirect_url'], $_SESSION['messageType']);
 
-    $display = $myArticles->newsTemplate(
+    $display = $articlesRecord->newsTemplate(
         '../adminTemplates/messages.html.php',
         [
             'message' => $message,
@@ -32,6 +32,6 @@ if (isset($_SESSION['loggedin'])) {
 
 } else {
 
-    $display = $myArticles->newsTemplate('../adminTemplates/login.html.php', []);
+    $display = $articlesRecord->newsTemplate('../adminTemplates/login.html.php', []);
 
 }

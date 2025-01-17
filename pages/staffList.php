@@ -3,10 +3,10 @@
 //create an instance or object of a classs
 $myUsers = new \GenericClasses\DatabaseTable($pdo, 'accounts', 'id');
 $myStatus = new \GenericClasses\DatabaseTable($pdo, 'accounts', 'status');
-$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
 
-$categories = $myCategory->genFindAll();
-$sidebar = $myCategory->newsTemplate('../adminTemplates/sidebar.html.php', []);
+$categories = $categoryRecord->genFindAll();
+$sidebar = $categoryRecord->newsTemplate('../adminTemplates/sidebar.html.php', []);
 
 /*
 usernames           passwords

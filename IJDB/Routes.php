@@ -4,60 +4,60 @@ namespace IJDB;
 
 class Routes
 {
-    public $myCategory;
+    public $categoryRecord;
     public function __construct()
     {
         require '../functions/dbconfig.php';
-        $this->myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+        $this->categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
     }
     public function getPage($pageName)
     {
         require '../functions/dbconfig.php';
-        $myArticles = new \GenericClasses\DatabaseTable($pdo, 'article', 'id');
-        $myComment = new \GenericClasses\DatabaseTable($pdo, 'comments', 'id');
-        $myReader = new \GenericClasses\DatabaseTable($pdo, 'reader', 'id');
-        $myAccount = new \GenericClasses\DatabaseTable($pdo, 'accounts', 'id');
-        $myContact = new \GenericClasses\DatabaseTable($pdo, 'contactus', 'id');
+        $articlesRecord = new \GenericClasses\DatabaseTable($pdo, 'article', 'id');
+        $commentRecord = new \GenericClasses\DatabaseTable($pdo, 'comments', 'id');
+        $readersRecord = new \GenericClasses\DatabaseTable($pdo, 'reader', 'id');
+        $accountRecord = new \GenericClasses\DatabaseTable($pdo, 'accounts', 'id');
+        $contactRecord = new \GenericClasses\DatabaseTable($pdo, 'contactus', 'id');
         $myStatus = new \GenericClasses\DatabaseTable($pdo, 'accounts', 'status');
-        $contactStatus = new \GenericClasses\DatabaseTable($pdo, 'contactus', 'status');
+        $statusRecord = new \GenericClasses\DatabaseTable($pdo, 'contactus', 'status');
 
         $controllers = [];
         $controllers['article'] = new \IJDB\Controllers\Article(
-            $myArticles,
-            $this->myCategory,
-            $myComment,
-            $myReader
+            $articlesRecord,
+            $this->categoryRecord,
+            $commentRecord,
+            $readersRecord
         );
 
-        $controllers['category'] = new \IJDB\Controllers\Category($this->myCategory);
+        $controllers['category'] = new \IJDB\Controllers\Category($this->categoryRecord);
         $controllers['admin'] = new \IJDB\Controllers\Admin(
-            $myArticles,
-            $this->myCategory,
-            $myComment,
-            $myReader,
-            $myAccount,
-            $myContact
+            $articlesRecord,
+            $this->categoryRecord,
+            $commentRecord,
+            $readersRecord,
+            $accountRecord,
+            $contactRecord
         );
 
         $controllers['news'] = new \IJDB\Controllers\News(
-            $myArticles,
-            $this->myCategory,
-            $myComment,
-            $myReader,
-            $myAccount,
-            $myContact
+            $articlesRecord,
+            $this->categoryRecord,
+            $commentRecord,
+            $readersRecord,
+            $accountRecord,
+            $contactRecord
         );
 
         $controllers['account'] = new \IJDB\Controllers\Account(
-            $myAccount,
-            $this->myCategory,
+            $accountRecord,
+            $this->categoryRecord,
             $myStatus
         );
 
         $controllers['contacts'] = new \IJDB\Controllers\Contacts(
-            $myContact,
-            $this->myCategory,
-            $contactStatus
+            $contactRecord,
+            $this->categoryRecord,
+            $statusRecord
         );
 
         $route = $pageName;
@@ -80,7 +80,7 @@ class Routes
 
     public function getLayout()
     {
-        $categories = $this->myCategory->genFindAll();
+        $categories = $this->categoryRecord->genFindAll();
         return [
             'categories' => $categories
         ];

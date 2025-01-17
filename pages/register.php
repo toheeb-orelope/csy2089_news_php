@@ -4,8 +4,8 @@
 $myUsers = new \GenericClasses\DatabaseTable($pdo, 'accounts', 'id');
 $myStatus = new \GenericClasses\DatabaseTable($pdo, 'accounts', 'status');
 
-$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
-$categories = $myCategory->genFindAll();
+$categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$categories = $categoryRecord->genFindAll();
 $pageTitle = 'Create Account - Account';
 $sidebar = $myStatus->newsTemplate('../adminTemplates/sidebar.html.php', []);
 

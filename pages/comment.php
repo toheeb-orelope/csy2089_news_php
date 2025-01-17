@@ -2,12 +2,12 @@
 
 
 // Create an instance of the DatabaseTable class
-$myComment = new \GenericClasses\DatabaseTable($pdo, 'comments', 'id');
-$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$commentRecord = new \GenericClasses\DatabaseTable($pdo, 'comments', 'id');
+$categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
 
 // Load categories for the template
-$categories = $myCategory->genFindAll();
-$sidebar = $myComment->newsTemplate('../adminTemplates/sidebar.html.php', []);
+$categories = $categoryRecord->genFindAll();
+$sidebar = $commentRecord->newsTemplate('../adminTemplates/sidebar.html.php', []);
 $pageTitle = 'Northampton News - Article';
 $subTitle = 'Read';
 
@@ -39,7 +39,7 @@ if (isset($_SESSION['loggedin'])) {
                 $error = "User not identified. Please log in again.";
             } else {
                 // Save the comment to the DatabaseTable
-                $myComment->genSave([
+                $commentRecord->genSave([
                     'id' => null, // Let the DatabaseTable auto-generate the ID
                     'username' => $username,
                     'articleId' => $articleId,
@@ -55,11 +55,11 @@ if (isset($_SESSION['loggedin'])) {
 
         $comments = [];
         if ($articleId) {
-            $comments = $myComment->genFind('articleId', $articleId) ?? [];
+            $comments = $commentRecord->genFind('articleId', $articleId) ?? [];
         }
 
 
-        $display = $myComment->newsTemplate('../adminTemplates/articledetail.html.php', [
+        $display = $commentRecord->newsTemplate('../adminTemplates/articledetail.html.php', [
             'categories' => $categories,
             'comments' => $comments,
             'error' => $error
@@ -67,5 +67,5 @@ if (isset($_SESSION['loggedin'])) {
 
     }
 } else {
-    $display = $myComment->newsTemplate('../adminTemplates/login.html.php', []);
+    $display = $commentRecord->newsTemplate('../adminTemplates/login.html.php', []);
 }

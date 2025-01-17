@@ -1,19 +1,19 @@
 <?php
-$sidebar = $myArticles->newsTemplate(
+$sidebar = $articlesRecord->newsTemplate(
     '../newsTemplates/newssibebar.html.php',
     ['categories' => $categories]
 );
 
 //create an instance or object of a classs
-$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
-$myArticles = new \GenericClasses\DatabaseTable($pdo, 'article', 'id');
+$categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$articlesRecord = new \GenericClasses\DatabaseTable($pdo, 'article', 'id');
 
 $pageTitle = 'Article';
 $subTitle = '<h2>Article</h2>';
 
 
-$categories = $myCategory->genFindAll();
-$articles = $myArticles->genGetAll('categoryId', $_GET['id']);
+$categories = $categoryRecord->genFindAll();
+$articles = $articlesRecord->genGetAll('categoryId', $_GET['id']);
 
 
 
@@ -21,7 +21,7 @@ $articles = $myArticles->genGetAll('categoryId', $_GET['id']);
 
 
 
-$display = $myCategory->newsTemplate(
+$display = $categoryRecord->newsTemplate(
     '../newsTemplates/selectcategory.htm.php',
     ['articles' => $articles]
 );

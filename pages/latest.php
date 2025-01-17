@@ -1,8 +1,8 @@
 <?php
 //create an instance or object of a classs
-$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
-$myArticles = new \GenericClasses\DatabaseTable($pdo, 'article', 'id');
-$categories = $myCategory->genFindAll();
+$categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$articlesRecord = new \GenericClasses\DatabaseTable($pdo, 'article', 'id');
+$categories = $categoryRecord->genFindAll();
 
 
 $pageTitle = 'Northampton News - Sport';
@@ -12,9 +12,9 @@ $subTitle = '<h2>Latest News</h2>';
 // $stmt = $pdo->prepare('SELECT * FROM article ORDER by date desc');
 // $stmt->execute();
 
-// $articles = $myArticles->genFindAll();
-$articles = $myArticles->findByOrder();
+// $articles = $articlesRecord->genFindAll();
+$articles = $articlesRecord->findByOrder();
 
 
-$display = $myArticles->newsTemplate('../newsTemplates/latest.html.php', ['articles' => $articles]);
+$display = $articlesRecord->newsTemplate('../newsTemplates/latest.html.php', ['articles' => $articles]);
 

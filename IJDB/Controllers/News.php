@@ -3,12 +3,12 @@ namespace IJDB\Controllers;
 class News
 {
     function __construct(
-        public $myArticles,
-        public $myCategory,
-        public $myComment,
-        public $myReader,
-        public $myAccount,
-        public $myContact,
+        public $articlesRecord,
+        public $categoryRecord,
+        public $commentRecord,
+        public $readersRecord,
+        public $accountRecord,
+        public $contactRecord,
     ) {
     }
 
@@ -38,13 +38,13 @@ class News
     public function contact()
     {
         if (isset($_GET['id'])) {
-            $contact = $this->myContact->genFind('id', $_GET['id']);
+            $contact = $this->contactRecord->genFind('id', $_GET['id']);
         } else {
             $contact = false;
         }
 
         if (isset($_POST['submit'])) {
-            $this->myContact->genSave($_POST['contact']);
+            $this->contactRecord->genSave($_POST['contact']);
             header('location: /contact');
         } else {
             return [
@@ -59,7 +59,7 @@ class News
 
     public function latest()
     {
-        $articles = $this->myArticles->findByOrder();
+        $articles = $this->articlesRecord->findByOrder();
 
         return [
             'fileName' => '../newsTemplates/latest.html.php',
@@ -72,7 +72,7 @@ class News
 
     public function selectcategory()
     {
-        $articles = $this->myArticles->genGetAll('categoryId', $_GET['id']);
+        $articles = $this->articlesRecord->genGetAll('categoryId', $_GET['id']);
         return [
             'fileName' => '../newsTemplates/selectcategory.html.php',
             'variables' => ['articles' => $articles],
@@ -88,19 +88,19 @@ class News
 
         if (isset($_GET['id'])) {
             $articleId = $_GET['id'];
-            $article = $this->myArticles->genFind('id', $articleId);
-            $comments = $this->myComment->genGetAll('articleId', $articleId);
+            $article = $this->articlesRecord->genFind('id', $articleId);
+            $comments = $this->commentRecord->genGetAll('articleId', $articleId);
         } else {
             $article = null;
             $comments = [];
         }
 
         if (isset($action) && $action === 'delete') {
-            $this->myComment->genDelete('id', $_GET['id']);
+            $this->commentRecord->genDelete('id', $_GET['id']);
         }
 
         if (isset($action) && $action === 'edit') {
-            $comment = $this->myComment->genFind('id', $_GET['id']);
+            $comment = $this->commentRecord->genFind('id', $_GET['id']);
         } else {
             $comment = null;
         }
@@ -116,7 +116,7 @@ class News
                     unset($postComments['id']);
                 }
 
-                $this->myComment->genSave($postComments);
+                $this->commentRecord->genSave($postComments);
                 // header("Location: articledetail.php?id=$articleId");
                 // exit;
             } else {
@@ -143,7 +143,7 @@ class News
         $articles = [];
         if (isset($_GET['username'])) {
             $username = $_GET['username'];
-            $articles = $this->myArticles->genGetAll('username', $username);
+            $articles = $this->articlesRecord->genGetAll('username', $username);
         }
         return [
             'fileName' => '../newsTemplates/postby.html.php',
@@ -166,7 +166,7 @@ class News
         */
         if (isset($_POST['submit'])) {
 
-            $users = $this->myReader->genFind('username', $_POST['username']);
+            $users = $this->readersRecord->genFind('username', $_POST['username']);
 
             if ($users && password_verify($_POST['password'], $users['password'])) {
                 $_SESSION['loggedin'] = true;
@@ -208,7 +208,7 @@ class News
                 $hashPassword = password_hash($hPassword, PASSWORD_DEFAULT);
                 $_POST['profile']['password'] = $hashPassword;
 
-                $this->myReader->genSave($_POST['profile']);
+                $this->readersRecord->genSave($_POST['profile']);
 
                 header('location: loginpage');
                 exit;
@@ -220,7 +220,7 @@ class News
             if (isset($_GET['id'])) {
                 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
                 if ($id) {
-                    $profile = $this->myReader->genFind('id', $id);
+                    $profile = $this->readersRecord->genFind('id', $id);
                 }
             }
 

@@ -4,7 +4,7 @@ namespace IJDB\Controllers;
 class Category
 {
     public function __construct(
-        public $myCategory
+        public $categoryRecord
     ) {
     }
 
@@ -12,7 +12,7 @@ class Category
     {
         if (isset($_SESSION['loggedin'])) {
 
-            $categories = $this->myCategory->genFindAll();
+            $categories = $this->categoryRecord->genFindAll();
 
             return [
                 'fileName' => '../adminTemplates/categories.html.php',
@@ -37,7 +37,7 @@ class Category
     {
         if (isset($_SESSION['loggedin'])) {
 
-            $this->myCategory->genDelete('id', $_GET['id']);
+            $this->categoryRecord->genDelete('id', $_GET['id']);
             header('location: /category/list');
         } else {
             return [
@@ -56,7 +56,7 @@ class Category
         if (isset($_SESSION['loggedin'])) {
 
             if (isset($_GET['id'])) {
-                $category = $this->myCategory->genFind('id', $_GET['id']);
+                $category = $this->categoryRecord->genFind('id', $_GET['id']);
             } else {
                 $category = false;
             }
@@ -65,7 +65,7 @@ class Category
 
 
                 // save($pdo, 'category', $_POST['category'], 'id');
-                $this->myCategory->genSave($_POST['category']);
+                $this->categoryRecord->genSave($_POST['category']);
 
                 header('location: /category/list');
             } else {

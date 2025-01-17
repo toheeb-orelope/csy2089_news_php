@@ -2,10 +2,10 @@
 
 //create an instance or object of a classs
 $myImage = new \GenericClasses\DatabaseTable($pdo, 'images', 'id');
-$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
 
-$categories = $myCategory->genFindAll();
-$sidebar = $myCategory->newsTemplate('../adminTemplates/sidebar.html.php', []);
+$categories = $categoryRecord->genFindAll();
+$sidebar = $categoryRecord->newsTemplate('../adminTemplates/sidebar.html.php', []);
 $pageTitle = 'Northampton News - Images';
 $subTitle = '<h2>Images</h2>';
 

@@ -6,7 +6,7 @@ class Account
 {
     public function __construct(
         public $myUsers,
-        public $myCategory,
+        public $categoryRecord,
         public $myStatus,
     ) {
     }
@@ -19,8 +19,9 @@ class Account
         secondUser24        StrongPass123!
         anotheruser24       Admin24!
         Taofeeq2024         @Taofeeq2024!
+        lastUser25          @LastUser25!
         */
-        $categories = $this->myCategory->genFindAll();
+        $categories = $this->categoryRecord->genFindAll();
 
         $status = $this->myStatus->getEnumValues();
 

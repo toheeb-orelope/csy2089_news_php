@@ -2,11 +2,11 @@
 
 //create an instance or object of a classs
 $myUsers = new \GenericClasses\DatabaseTable($pdo, 'accounts', 'id');
-$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
 
 $sidebar = $myUsers->newsTemplate('../adminTemplates/sidebar.html.php', []);
 
-$categories = $myCategory->genFindAll();
+$categories = $categoryRecord->genFindAll();
 
 $pageTitle = 'Northampton News - Delete User';
 $subTitlte = 'Delete Users';

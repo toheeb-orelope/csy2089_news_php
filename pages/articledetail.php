@@ -1,11 +1,11 @@
 <?php
 
-$myArticles = new \GenericClasses\DatabaseTable($pdo, 'article', 'id');
-$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
-$myComment = new \GenericClasses\DatabaseTable($pdo, 'comments', 'id');
-$myReader = new \GenericClasses\DatabaseTable($pdo, 'reader', 'id');
+$articlesRecord = new \GenericClasses\DatabaseTable($pdo, 'article', 'id');
+$categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$commentRecord = new \GenericClasses\DatabaseTable($pdo, 'comments', 'id');
+$readersRecord = new \GenericClasses\DatabaseTable($pdo, 'reader', 'id');
 
-$categories = $myCategory->genFindAll();
+$categories = $categoryRecord->genFindAll();
 
 $pageTitle = 'Article';
 $subTitle = '<h2>Article Details</h2>';
@@ -13,19 +13,19 @@ $action = $_GET['action'] ?? null;
 
 if (isset($_GET['id'])) {
     $articleId = $_GET['id'];
-    $article = $myArticles->genFind('id', $articleId);
-    $comments = $myComment->genGetAll('articleId', $articleId);
+    $article = $articlesRecord->genFind('id', $articleId);
+    $comments = $commentRecord->genGetAll('articleId', $articleId);
 } else {
     $article = null;
     $comments = [];
 }
 
 if (isset($_GET['action']) && $_GET['action'] === 'delete') {
-    $myComment->genDelete('id', $_GET['id']);
+    $commentRecord->genDelete('id', $_GET['id']);
 }
 
 if (isset($_GET['action']) && $_GET['action'] === 'edit') {
-    $comment = $myComment->genFind('id', $_GET['id']);
+    $comment = $commentRecord->genFind('id', $_GET['id']);
 } else {
     $comment = null;
 }
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sendcomment'])) {
             unset($postComments['id']);
         }
 
-        $myComment->genSave($postComments);
+        $commentRecord->genSave($postComments);
         header("Location: articledetail.php?id=$articleId");
         // exit;
     } else {
@@ -51,4 +51,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sendcomment'])) {
 }
 
 
-$display = $myCategory->newsTemplate('../newsTemplates/articledetail.html.php', ['article' => $article, 'comments' => $comments]);
+$display = $categoryRecord->newsTemplate('../newsTemplates/articledetail.html.php', ['article' => $article, 'comments' => $comments]);

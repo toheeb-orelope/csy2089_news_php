@@ -4,18 +4,18 @@
 $pageTitle = 'Northampton News - Article';
 
 // Create instances of the DatabaseTable class
-$myArticles = new \GenericClasses\DatabaseTable($pdo, 'article', 'id');
-$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$articlesRecord = new \GenericClasses\DatabaseTable($pdo, 'article', 'id');
+$categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
 $myImage = new \GenericClasses\DatabaseTable($pdo, 'images', 'id');
 
-$sidebar = $myArticles->newsTemplate('../adminTemplates/sidebar.html.php', []);
+$sidebar = $articlesRecord->newsTemplate('../adminTemplates/sidebar.html.php', []);
 $subTitle = '<h2>Add Article</h2>';
 
 if (isset($_SESSION['loggedin'])) {
-    $categories = $myCategory->genFindAll();
+    $categories = $categoryRecord->genFindAll();
 
     if (isset($_GET['id'])) {
-        $articles = $myArticles->genFind('id', $_GET['id']);
+        $articles = $articlesRecord->genFind('id', $_GET['id']);
     } else {
         $articles = 'No record to insert';
     }
@@ -34,19 +34,19 @@ if (isset($_SESSION['loggedin'])) {
         $postArt = $_POST['article'];
         $postArt['imgFile'] = $imgFile;
         $postArt['username'] = $username;
-        $myArticles->genSave($postArt);
+        $articlesRecord->genSave($postArt);
         move_uploaded_file($tempName, $folderName);
         header('location: articles.php');
 
         // header('location: articles.php');
     } else {
-        $display = $myArticles->newsTemplate(
+        $display = $articlesRecord->newsTemplate(
             '../adminTemplates/editarticle.html.php',
             ['article' => $articles, 'categories' => $categories]
         );
     }
 } else {
-    $display = $myArticles->newsTemplate(
+    $display = $articlesRecord->newsTemplate(
         '../adminTemplates/login.html.php',
         []
     );

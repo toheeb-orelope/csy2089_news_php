@@ -30,7 +30,6 @@ if ($comments) {
 
 
 <!-- Add Comment Form -->
-<?= var_dump($_SESSION) ?>
 <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']): ?>
 
     <form action="/news/articledetail?id=<?= $article['id'] ?>" method="POST">

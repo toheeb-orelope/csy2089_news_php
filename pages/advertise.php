@@ -3,17 +3,17 @@
 
 
 //create an instance or object of a classs
-$myArticles = new \GenericClasses\DatabaseTable($pdo, 'article', 'categoryId');
-$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
-$categories = $myCategory->genFindAll();
+$articlesRecord = new \GenericClasses\DatabaseTable($pdo, 'article', 'categoryId');
+$categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$categories = $categoryRecord->genFindAll();
 
 $pageTitle = 'Northampton News - Advert';
 $subTitle = '<h2>Advertise with us</h2>';
-$sidebar = $myCategory->newsTemplate('../newsTemplates/newssibebar.html.php', ['categories' => $categories]);
+$sidebar = $categoryRecord->newsTemplate('../newsTemplates/newssibebar.html.php', ['categories' => $categories]);
 
 
 
-$articles = $myArticles->genFindAll();
+$articles = $articlesRecord->genFindAll();
 
-$display = $myArticles->newsTemplate('../newsTemplates/advertise.html.php', []);
+$display = $articlesRecord->newsTemplate('../newsTemplates/advertise.html.php', []);
 

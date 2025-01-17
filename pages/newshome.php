@@ -2,11 +2,11 @@
 $pageTitle = 'Home';
 $subTitle = '<h2>Northampton News</h2>';
 
-$sidebar = $myArticles->newsTemplate(
+$sidebar = $articlesRecord->newsTemplate(
     '../newsTemplates/newssibebar.html.php',
     ['categories' => $categories]
 );
 
 
 
-$display = $myCategory->newsTemplate('../newsTemplates/newshome.html.php', []);
+$display = $categoryRecord->newsTemplate('../newsTemplates/newshome.html.php', []);

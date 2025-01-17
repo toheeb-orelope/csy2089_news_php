@@ -1,13 +1,43 @@
-<div>
-    <?php
-    echo '<table>';
-    foreach ($articles as $article) {
-        echo '<tr>';
-        echo '<td><a href="/article/articledetail?id=' . $article['id'] . '">' . $article['title'] . '</a></td>';
-        echo '<td><a href="/article/edit?id=' . $article['id'] . '">Edit</a></td>';
-        echo '<td><a href="/article/delete?id=' . $article['id'] . '" onclick="return confirm(\'Are you sure you want to delete this user?\');">Delete</a></td>';
-        echo '</td>';
+<?php foreach ($articles as $article) { ?>
+    <blockquote>
+        <div class="articleContainer">
+            <?php
+
+            echo '<img src="../images/' . htmlspecialchars($article['imgFile'])
+                . '" alt="Image" />';
+
+            ?>
+            <h2><a href="/news/articledetail?id=<?= $article['id'] ?>">
+                    <?= htmlspecialchars($article['title']) ?></a></h2>
+        </div>
+
+        <h3>Published By: <a href="/news/postby?username=<?= $article['username'] ?>">
+                <?= $article['username'] ?></a></h3>
+        <p><strong>Date Published: </strong>
+            <?= htmlspecialchars($article['date']) ?></p>
+    </blockquote>
+<?php } ?>
+
+<style>
+    img {
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
     }
-    echo '</table>';
-    ?>
-</div>
+
+    .articleContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #f00;
+    }
+</style>

@@ -8,16 +8,16 @@ thirdreader23    @ThirdReader23
 */
 
 // Create an instance or object of a class
-$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
-$myReader = new \GenericClasses\DatabaseTable($pdo, 'reader', 'id');
+$categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$readersRecord = new \GenericClasses\DatabaseTable($pdo, 'reader', 'id');
 
-$categories = $myCategory->genFindAll();
+$categories = $categoryRecord->genFindAll();
 
 $pageTitle = 'Northampton News - Profile';
 $subTitle = '<h2>Create Account</h2>';
 
 
-$sidebar = $myReader->newsTemplate('../newsTemplates/newssibebar.html.php', ['categories' => $categories]);
+$sidebar = $readersRecord->newsTemplate('../newsTemplates/newssibebar.html.php', ['categories' => $categories]);
 
 // Capture the redirect parameter
 $redirect = $_GET['redirect'] ?? 'viewusers.php';
@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
         $_POST['profile']['password'] = $hashPassword;
 
         // Save the new user
-        $myReader->genSave($_POST['profile']);
+        $readersRecord->genSave($_POST['profile']);
 
         // Redirect to the specified page
         header("Location: $redirect");
@@ -42,9 +42,9 @@ if (isset($_POST['submit'])) {
     if (isset($_GET['id'])) {
         $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         if ($id) {
-            $profile = $myReader->genFind('id', $id);
+            $profile = $readersRecord->genFind('id', $id);
         }
     }
 
-    $display = $myCategory->newsTemplate('../newsTemplates/profile.html.php', []);
+    $display = $categoryRecord->newsTemplate('../newsTemplates/profile.html.php', []);
 }

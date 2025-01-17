@@ -5,12 +5,12 @@ namespace Ijdb\Controllers;
 class Admin
 {
     function __construct(
-        public $myArticles,
-        public $myCategory,
-        public $myComment,
-        public $myReader,
-        public $myAccount,
-        public $myContact,
+        public $articlesRecord,
+        public $categoryRecord,
+        public $commentRecord,
+        public $readersRecord,
+        public $accountRecord,
+        public $contactRecord,
     ) {
     }
 
@@ -30,7 +30,7 @@ class Admin
         if (isset($_POST['submit'])) {
             // session_start();
 
-            $users = $this->myAccount->genFind('username', $_POST['username']);
+            $users = $this->accountRecord->genFind('username', $_POST['username']);
 
             if ($users && password_verify($_POST['password'], $users['password'])) {
                 $_SESSION['loggedin'] = true;
@@ -49,7 +49,7 @@ class Admin
 
 
             if (isset($_SESSION['loggedin'])) {
-                $users = $this->myAccount->genFind('username', $_POST['username']);
+                $users = $this->accountRecord->genFind('username', $_POST['username']);
                 return [
                     'fileName' => '../adminTemplates/adminHome.html.php',
                     'variables' => ['users' => $users],
@@ -60,7 +60,7 @@ class Admin
             }
 
         } else {
-            $this->myAccount->newsTemplate('../adminTemplates/login.html.php', []);
+            $this->accountRecord->newsTemplate('../adminTemplates/login.html.php', []);
         }
 
         return [

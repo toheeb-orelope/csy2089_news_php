@@ -1,9 +1,9 @@
 <?php
 // Create an instance of the DatabaseTable class
 $myImages = new \GenericClasses\DatabaseTable($pdo, 'images', 'id');
-$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
 
-$categories = $myCategory->genFindAll();
+$categories = $categoryRecord->genFindAll();
 $sidebar = $myImages->newsTemplate('../adminTemplates/sidebar.html.php', []);
 
 $pageTitle = 'Article';

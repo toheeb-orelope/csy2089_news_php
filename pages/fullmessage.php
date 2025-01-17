@@ -2,15 +2,15 @@
 
 
 //create an instance or object of a classs
-$myContact = new \GenericClasses\DatabaseTable($pdo, 'contactus', 'id');
-$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$contactRecord = new \GenericClasses\DatabaseTable($pdo, 'contactus', 'id');
+$categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
 $myStatus = new \GenericClasses\DatabaseTable($pdo, 'contactus', 'status');
 
-$sidebar = $myCategory->newsTemplate(
+$sidebar = $categoryRecord->newsTemplate(
     '../adminTemplates/sidebar.html.php',
     []
 );
-$categories = $myCategory->genFindAll();
+$categories = $categoryRecord->genFindAll();
 
 $pageTitle = 'View Contacts';
 $subTitle = '<h2>Message board</h2>';
@@ -24,7 +24,7 @@ if (isset($_SESSION['loggedin'])) {
         foreach ($_POST['status'] as $id => $newStatus) {
             $id = filter_var($id, FILTER_VALIDATE_INT);
             if ($id && in_array(strtolower($newStatus), ['pending', 'done'])) {
-                $updateResult = $myContact->genUpdate([
+                $updateResult = $contactRecord->genUpdate([
                     'id' => $id,
                     'status' => $newStatus,
                     'update_by_user' => $avaUser,
@@ -37,7 +37,7 @@ if (isset($_SESSION['loggedin'])) {
     }
 
     if (isset($_GET['id'])) {
-        $contact = $myContact->genFind('id', $_GET['id']);
+        $contact = $contactRecord->genFind('id', $_GET['id']);
         if (!$contact) {
             $contact = [];
         }
@@ -53,7 +53,7 @@ if (isset($_SESSION['loggedin'])) {
     );
 
 } else {
-    $display = $myContact->newsTemplate(
+    $display = $contactRecord->newsTemplate(
         '../adminTemplates/login.html.php',
         []
     );

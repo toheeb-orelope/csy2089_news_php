@@ -4,10 +4,10 @@ class Article
 {
 
     public function __construct(
-        public $myArticles,
-        public $myCategory,
-        public $myComment,
-        public $myReader,
+        public $articlesRecord,
+        public $categoryRecord,
+        public $commentRecord,
+        public $readersRecord,
     ) {
     }
 
@@ -15,7 +15,7 @@ class Article
     {
         if (isset($_SESSION['loggedin'])) {
 
-            $articles = $this->myArticles->genFindAll();
+            $articles = $this->articlesRecord->genFindAll();
 
             return [
                 'fileName' => '../adminTemplates/articles.html.php',
@@ -40,10 +40,10 @@ class Article
     {
 
         if (isset($_SESSION['loggedin'])) {
-            $categories = $this->myCategory->genFindAll();
+            $categories = $this->categoryRecord->genFindAll();
 
             if (isset($_GET['id'])) {
-                $article = $this->myArticles->genFind('id', $_GET['id']);
+                $article = $this->articlesRecord->genFind('id', $_GET['id']);
             } else {
                 $article = 'No record to insert';
             }
@@ -64,7 +64,7 @@ class Article
                 $postArt = $_POST['article'];
                 $postArt['imgFile'] = $uniqueFileName;
                 $postArt['username'] = $username;
-                $this->myArticles->genSave($postArt);
+                $this->articlesRecord->genSave($postArt);
                 move_uploaded_file($tempName, $folderName);
                 header('location: /article/list');
 
@@ -102,7 +102,7 @@ class Article
     {
         if (isset($_SESSION['loggedin'])) {
 
-            $this->myArticles->genDelete('id', $_GET['id']);
+            $this->articlesRecord->genDelete('id', $_GET['id']);
 
             header('location: /article/list');
 

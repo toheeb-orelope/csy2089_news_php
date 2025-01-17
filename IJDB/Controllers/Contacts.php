@@ -3,9 +3,9 @@ namespace IJDB\Controllers;
 class Contacts
 {
     public function __construct(
-        public $myContact,
-        public $myCategory,
-        public $contactStatus
+        public $contactRecord,
+        public $categoryRecord,
+        public $statusRecord
 
     ) {
     }
@@ -13,19 +13,19 @@ class Contacts
     public function list()
     {
 
-        $categories = $this->myCategory->genFindAll();
+        $categories = $this->categoryRecord->genFindAll();
 
         $pageTitle = 'View Contacts';
         $subTitle = '<h2>Message board</h2>';
         if (isset($_SESSION['loggedin'])) {
 
-            $status = $this->contactStatus->getEnumValues();
+            $status = $this->statusRecord->getEnumValues();
 
             //Search by keyword
             if (isset($_GET['keyword'])) {
-                $contacts = $this->myContact->fetchByKeyword('status', $_GET['keyword']);
+                $contacts = $this->contactRecord->fetchByKeyword('status', $_GET['keyword']);
             } else {
-                $contacts = $this->myContact->genFindAll();
+                $contacts = $this->contactRecord->genFindAll();
             }
 
             // echo '<pre>';
@@ -52,7 +52,7 @@ class Contacts
 
     public function edit()
     {
-        $categories = $this->myCategory->genFindAll();
+        $categories = $this->categoryRecord->genFindAll();
 
         $pageTitle = 'View Contacts';
         $subTitle = '<h2>Message board</h2>';
@@ -66,7 +66,7 @@ class Contacts
                 foreach ($_POST['status'] as $id => $newStatus) {
                     $id = filter_var($id, FILTER_VALIDATE_INT);
                     if ($id && in_array(strtolower($newStatus), ['pending', 'done'])) {
-                        $updateResult = $this->myContact->genUpdate([
+                        $updateResult = $this->contactRecord->genUpdate([
                             'id' => $id,
                             'status' => $newStatus,
                             'update_by_user' => $avaUser,
@@ -79,7 +79,7 @@ class Contacts
             }
 
             if (isset($_GET['id'])) {
-                $contact = $this->myContact->genFind('id', $_GET['id']);
+                $contact = $this->contactRecord->genFind('id', $_GET['id']);
                 if (!$contact) {
                     $contact = [];
                 }
@@ -87,7 +87,7 @@ class Contacts
                 $contact = [];
             }
 
-            $status = $this->contactStatus->getEnumValues();
+            $status = $this->statusRecord->getEnumValues();
 
             return [
                 'fileName' => '../adminTemplates/fullmessage.html.php',

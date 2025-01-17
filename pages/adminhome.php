@@ -12,10 +12,10 @@ Taofeeq2024         @Taofeeq2024!
 if (isset($_POST['submit'])) {
     // session_start();
 //create an instance or object of a classs
-    $myArticles = new \GenericClasses\DatabaseTable($pdo, 'accounts', 'id');
-    $myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
-    $categories = $myCategory->genFindAll();
-    $sidebar = $myCategory->newsTemplate('../adminTemplates/sidebar.html.php', []);
+    $articlesRecord = new \GenericClasses\DatabaseTable($pdo, 'accounts', 'id');
+    $categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+    $categories = $categoryRecord->genFindAll();
+    $sidebar = $categoryRecord->newsTemplate('../adminTemplates/sidebar.html.php', []);
 
 
 
@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
     if (isset($_POST['submit'])) {
         // session_start();
 
-        $users = $myArticles->genFind('username', $_POST['username']);
+        $users = $articlesRecord->genFind('username', $_POST['username']);
 
 
         if ($users && password_verify($_POST['password'], $users['password'])) {
@@ -48,17 +48,17 @@ if (isset($_POST['submit'])) {
 
 
         if (isset($_SESSION['loggedin'])) {
-            $users = $myArticles->genFind('username', $_POST['username']);
-            $display = $myArticles->newsTemplate(
+            $users = $articlesRecord->genFind('username', $_POST['username']);
+            $display = $articlesRecord->newsTemplate(
                 '../adminTemplates/adminHome.html.php',
                 ['users' => $users]
             );
         }
 
     } else {
-        $display = $myArticles->newsTemplate('../adminTemplates/login.html.php', []);
+        $display = $articlesRecord->newsTemplate('../adminTemplates/login.html.php', []);
     }
-    $users = $myArticles->genFind('username', $_POST['username']);
+    $users = $articlesRecord->genFind('username', $_POST['username']);
 
 
     if ($users && password_verify($_POST['password'], $users['password'])) {
@@ -66,19 +66,19 @@ if (isset($_POST['submit'])) {
         $_SESSION['username'] = $users['username'];
         $_SESSION['id'] = $users['id'];
     } else {
-        $display = $myArticles->newsTemplate('../adminTemplates/login.html.php', []);
+        $display = $articlesRecord->newsTemplate('../adminTemplates/login.html.php', []);
     }
 
 
 
     if (isset($_SESSION['loggedin'])) {
-        $users = $myArticles->genFind('username', $_POST['username']);
-        $display = $myArticles->newsTemplate(
+        $users = $articlesRecord->genFind('username', $_POST['username']);
+        $display = $articlesRecord->newsTemplate(
             '../adminTemplates/adminHome.html.php',
             ['users' => $users]
         );
     }
 
 } else {
-    $display = $myArticles->newsTemplate('../adminTemplates/login.html.php', []);
+    $display = $articlesRecord->newsTemplate('../adminTemplates/login.html.php', []);
 }

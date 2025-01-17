@@ -1,15 +1,15 @@
 <?php
 //create an instance or object of a classs
-$myContact = new \GenericClasses\DatabaseTable($pdo, 'contactus', 'id');
-$myCategory = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
+$contactRecord = new \GenericClasses\DatabaseTable($pdo, 'contactus', 'id');
+$categoryRecord = new \GenericClasses\DatabaseTable($pdo, 'category', 'id');
 $myStatus = new \GenericClasses\DatabaseTable($pdo, 'contactus', 'status');
 
 
-$sidebar = $myCategory->newsTemplate(
+$sidebar = $categoryRecord->newsTemplate(
     '../adminTemplates/sidebar.html.php',
     []
 );
-$categories = $myCategory->genFindAll();
+$categories = $categoryRecord->genFindAll();
 
 $pageTitle = 'View Contacts';
 $subTitle = '<h2>Message board</h2>';
@@ -19,9 +19,9 @@ if (isset($_SESSION['loggedin'])) {
 
     //Search by keyword
     if (isset($_GET['keyword'])) {
-        $contacts = $myContact->fetchByKeyword('status', $_GET['keyword']);
+        $contacts = $contactRecord->fetchByKeyword('status', $_GET['keyword']);
     } else {
-        $contacts = $myContact->genFindAll();
+        $contacts = $contactRecord->genFindAll();
     }
 
     // echo '<pre>';
@@ -34,7 +34,7 @@ if (isset($_SESSION['loggedin'])) {
     );
 
 } else {
-    $display = $myContact->newsTemplate(
+    $display = $contactRecord->newsTemplate(
         '../adminTemplates/login.html.php',
         []
     );
